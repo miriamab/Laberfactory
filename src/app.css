@@ -1,0 +1,113 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* Core palette - strictly two colors */
+  --background: #0f0f0f;
+  --foreground: #ff8b4c;
+  
+  /* Custom properties */
+  --font-mono: "JetBrains Mono", monospace;
+  --glow-orange: 0 0 20px rgba(255, 139, 76, 0.3);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+/* Utility Classes */
+.text-glow {
+  text-shadow: var(--glow-orange);
+}
+
+.border-glow {
+  box-shadow: var(--glow-orange);
+}
+
+.line-decoration {
+  position: relative;
+}
+
+.line-decoration::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--foreground);
+  transition: width 0.3s ease;
+}
+
+.line-decoration:hover::after {
+  width: 100%;
+}
+
+/* Grid overlay now handled by InteractiveGrid component */
+
+/* Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes line-draw {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulse-grow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-line-draw {
+  animation: line-draw 2s ease-out forwards;
+}
+
+.animate-pulse {
+  animation: pulse-grow 2s ease-in-out infinite;
+}
