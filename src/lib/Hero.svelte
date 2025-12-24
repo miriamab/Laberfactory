@@ -6,9 +6,8 @@
 			MOVE
 		</h1>
 		<p class="animate-fade-in" style="animation-delay: 0.2s;">
-			Visualizing half a decade of fragmented movement. 
-            Where inconsistent intervals converge into a monumental 
-            landscape of total output.
+            A visualization of 70 months of personal athletic data. 
+            From running to strength training, this project tracks the evolution of my training habits.
 		</p>
 	</div>
 </section>

@@ -2,8 +2,9 @@
 	import Hero from '$lib/Hero.svelte';
 	import FloatingParticles from '$lib/FloatingParticles.svelte';
 	import YearCalendar from '$lib/visualizations/YearCalendar.svelte';
+	import DistanceChart from '$lib/visualizations/DistanceChart.svelte';
 	import ProjectGrid from '$lib/ProjectGrid.svelte';
-	import TextBlocks from '$lib/TextBlocks.svelte';
+
 	import AbstractLines from '$lib/AbstractLines.svelte';
 	import Footer from '$lib/Footer.svelte';
 </script>
@@ -17,9 +18,7 @@
 <section id="phase-1" class="section">
 	<div class="phase-header">
 		<h2>DURATION</h2>
-		<p>A comprehensive breakdown of time invested over 70 months. 
-			The Chronologic Grid maps the frequency of effort, while the Duration Analysis 
-			quantifies the cumulative hours across all disciplines.</p>
+		<p>Each orange dot represents a day of athletic activity.</p>
 	<YearCalendar
 	<ProjectGrid />
 </section>
@@ -28,9 +27,9 @@
 <section id="phase-2" class="section">
 	<div class="phase-header">
 		<h2>DISTANCE</h2>
-		<p>Where intent meets the local terrain.</p>
+		<p>Each dot represents a fixed distance, marking the extreme activity peaks during the lockdown years.</p>
 	</div>
-	<TextBlocks />
+	<DistanceChart />
 </section>
 
 <!-- Phase 3: Endurance -->
@@ -57,23 +56,16 @@
 		<h2>FORCE</h2>
 		<p>blabla</p>
 	</div>
-	<TextBlocks />
 </section>
 
 <Footer />
 
 <style>
 	.section {
-		min-height: 100vh;
-		padding: 40px 0 0 0;
+		min-height: 10vh;
+		padding-top: 10rem;
 		display: flex;
 		flex-direction: column;
-	}
-
-
-	.phase-header {
-		padding: 4rem 1.5rem 2rem;
-		border-bottom: 1px solid rgba(255, 139, 76, 0.2);
 	}
 
 	.phase-header h2 {
@@ -94,7 +86,7 @@
 
 	@media (min-width: 768px) {
 		.phase-header {
-			padding: 0rem 3rem 3rem;
+			padding: 0 3rem 1.5rem;
 		}
 
 		.phase-header h2 {
