@@ -106,8 +106,6 @@
 				.append('div')
 				.attr('class', 'year-block');
 
-			yearGroup.append('h3').text(year);
-
 			const weeksInYear = 54;
 			const svgWidth = weeksInYear * (cellSize + cellGapX) - cellGapX + 20;
 			const svgHeight = 7 * (cellSize + cellGapY) - cellGapY + 40;
@@ -119,6 +117,38 @@
 				.attr('viewBox', `0 0 ${svgWidth} ${svgHeight}`)
 				.attr('preserveAspectRatio', 'xMinYMid')
 				.attr('class', 'calendar-svg');
+
+			// Add year overlay as SVG text (hidden by default, shown on hover)
+			const yearLabel = svg
+				.append('text')
+				.attr('class', 'year-label')
+				.attr('x', svgWidth / 2)
+				.attr('y', svgHeight / 2)
+				.attr('font-size', '72px')
+				.attr('font-weight', 'bold')
+				.attr('fill', '#ff8b4c')
+				.attr('text-anchor', 'middle')
+				.attr('dominant-baseline', 'middle')
+				.attr('opacity', 0)
+				.attr('pointer-events', 'none')
+				.text(year);
+
+			// Add hover effect with JavaScript
+			yearGroup
+				.on('mouseenter', function() {
+					// Fade out all circles and month labels
+					svg.selectAll('.day').attr('opacity', 0.3);
+					svg.selectAll('text:not(.year-label)').attr('opacity', 0.3);
+					// Show year label
+					yearLabel.attr('opacity', 1);
+				})
+				.on('mouseleave', function() {
+					// Restore circles and month labels
+					svg.selectAll('.day').attr('opacity', null);
+					svg.selectAll('text:not(.year-label)').attr('opacity', null);
+					// Hide year label
+					yearLabel.attr('opacity', 0);
+				});
 
 			// Month labels: calculate week positions per month upfront
 			const monthPositions = [0];
@@ -221,18 +251,22 @@
 		margin-bottom: 3rem;
 	}
 
-	.year-block h3 {
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: #ff8b4c;
-		letter-spacing: -0.5px;
-		margin: 0 0 1rem 0;
-	}
-
 	.calendar-svg {
 		display: block;
 		margin-bottom: 2rem;
 		overflow: visible;
+	}
+
+	:global(.calendar-svg .day) {
+		transition: opacity 0.4s ease;
+	}
+
+	:global(.calendar-svg text:not(.year-label)) {
+		transition: opacity 0.4s ease;
+	}
+
+	:global(.year-label) {
+		transition: opacity 0.4s ease;
 	}
 
 	.legend {
