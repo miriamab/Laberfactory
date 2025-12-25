@@ -3,9 +3,9 @@
 	import FloatingParticles from '$lib/FloatingParticles.svelte';
 	import YearCalendar from '$lib/visualizations/YearCalendar.svelte';
 	import DistanceChart from '$lib/visualizations/DistanceChart.svelte';
+	import WeekCalendar from '$lib/visualizations/WeekCalendar.svelte';
 	import ProjectGrid from '$lib/ProjectGrid.svelte';
 
-	import AbstractLines from '$lib/AbstractLines.svelte';
 	import Footer from '$lib/Footer.svelte';
 </script>
 
@@ -18,7 +18,7 @@
 <section id="phase-1" class="section">
 	<div class="phase-header">
 		<h2>DURATION</h2>
-		<p>Each orange dot represents a day of athletic activity.</p>
+		<p>Each orange dot represents a day with tracked athletic activity.</p>
 	<YearCalendar
 	<ProjectGrid />
 </section>
@@ -36,9 +36,9 @@
 <section id="phase-3" class="section">
 	<div class="phase-header">
 		<h2>ENDURANCE</h2>
-		<p>bla</p>
+		<p>A calendar where each entry offers a closer look at a single week.</p>
 	</div>
-	<AbstractLines />
+	<WeekCalendar />
 </section>
 
 <!-- Phase 4: Pace -->
