@@ -6,8 +6,8 @@
 			MOVE
 		</h1>
 		<p class="animate-fade-in" style="animation-delay: 0.2s;">
-            A visualization of 70 months of personal athletic data. 
-            From running to strength training, this project tracks the evolution of my training habits.
+            This project is a personal data visualization looking at 70 months of my athletic history.
+            From running to strength training, every session was tracked with my sports watch.
 		</p>
 	</div>
 </section>

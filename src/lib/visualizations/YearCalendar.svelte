@@ -44,7 +44,10 @@
 
 			if (dateString && dateString.length >= 10) {
 				const date = dateString.substring(0, 10); // Get YYYY-MM-DD
-				data[date] = 1;
+				const year = parseInt(date.substring(0, 4));
+				if (year >= 2020 && year <= 2025) {
+					data[date] = 1;
+				}
 			}
 		}
 		return data;

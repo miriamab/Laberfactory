@@ -57,6 +57,9 @@
 				if (!dateStr) return;
 
 				const date = new Date(dateStr);
+				const year = date.getFullYear();
+				if (year < 2020 || year > 2025) return;
+
 				const weekKey = getWeekKey(date);
 				const dayKey = date.getDay() === 0 ? 6 : date.getDay() - 1; // Convert to Mon-Sun
 
@@ -78,6 +81,9 @@
 				       if (!dateStr) return;
 
 				       const date = new Date(dateStr);
+				       const year = date.getFullYear();
+				       if (year < 2020 || year > 2025) return;
+
 				       const weekKey = getWeekKey(date);
 				       const dayKey = date.getDay() === 0 ? 6 : date.getDay() - 1;
 
@@ -99,6 +105,9 @@
 				if (!dateStr) return;
 
 				const date = new Date(dateStr);
+				const year = date.getFullYear();
+				if (year < 2020 || year > 2025) return;
+
 				const weekKey = getWeekKey(date);
 				const dayKey = date.getDay() === 0 ? 6 : date.getDay() - 1;
 

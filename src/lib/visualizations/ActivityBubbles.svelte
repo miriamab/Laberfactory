@@ -70,6 +70,11 @@
 			laufenText.split('\n').slice(1).forEach(line => {
 				if (!line.trim()) return;
 				const cols = parseCSVLine(line);
+				const dateStr = cols[1];
+				if (!dateStr) return;
+				const year = parseInt(dateStr.substring(0, 4));
+				if (year < 2020 || year > 2025) return;
+
 				const activityType = cols[0] || '';
 				const timeStr = cols[6];
 				const minutes = timeToMinutes(timeStr);
@@ -85,6 +90,11 @@
 			       cardioText.split('\n').slice(1).forEach(line => {
 				       if (!line.trim()) return;
 				       const cols = parseCSVLine(line);
+				       const dateStr = cols[1];
+				       if (!dateStr) return;
+				       const year = parseInt(dateStr.substring(0, 4));
+				       if (year < 2020 || year > 2025) return;
+
 				       const timeStr = cols[6];
 				       const minutes = timeToMinutes(timeStr);
 				       activityTotals['Cardio & Strength Training'] += minutes;
@@ -94,6 +104,11 @@
 			fahrradText.split('\n').slice(1).forEach(line => {
 				if (!line.trim()) return;
 				const cols = parseCSVLine(line);
+				const dateStr = cols[1];
+				if (!dateStr) return;
+				const year = parseInt(dateStr.substring(0, 4));
+				if (year < 2020 || year > 2025) return;
+
 				const activityType = cols[0] || '';
 				const timeStr = cols[6];
 				const minutes = timeToMinutes(timeStr);

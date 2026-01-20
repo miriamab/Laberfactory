@@ -3,8 +3,8 @@
 	import * as d3 from 'd3';
 
 	let container;
-	const startYear = new Date().getFullYear() - 5;
-	const endYear = new Date().getFullYear();
+	const startYear = 2020;
+	const endYear = 2025;
 	const cellSize = 14;
 	const cellGapX = 5;
 	const cellGapY = 10;
