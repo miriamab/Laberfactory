@@ -1,21 +1,26 @@
 <script>
 	import { onMount } from 'svelte';
-	import { scrollProgress } from './stores';
 
+	let { position = 'top', count = 40 } = $props();
+	
 	let particles = $state([]);
 	let animationFrame;
-	const particleCount = 40;
 	const cellSize = 14;
 
 	onMount(() => {
-		// Initialize particles
-		particles = Array.from({ length: particleCount }, (_, i) => ({
+		// Initialize particles based on position
+		const isTop = position === 'top';
+		const isContent = position === 'content';
+		
+		particles = Array.from({ length: count }, (_, i) => ({
 			id: i,
-			startX: Math.random() * 90 + 5,
-			startY: Math.random() * 30 + 65,
+			x: Math.random() * 90 + 5,
+			y: isContent ? Math.random() * 100 : (isTop ? Math.random() * 60 + 70 : Math.random() * 60 + 20),
 			floatOffset: Math.random() * Math.PI * 2,
-			floatSpeed: 0.5 + Math.random() * 0.5,
-			opacity: 0.5 + Math.random() * 0.5
+			floatOffsetX: Math.random() * Math.PI * 2,
+			floatSpeed: 0.3 + Math.random() * 0.4,
+			floatSpeedX: 0.2 + Math.random() * 0.3,
+			opacity: isContent ? 0.3 + Math.random() * 0.3 : 0.5 + Math.random() * 0.5
 		}));
 
 		// Animation loop for floating effect
@@ -25,63 +30,33 @@
 		};
 		animate();
 
-		// Scroll handler
-		const handleScroll = () => {
-			const heroEl = document.querySelector('#hero');
-			const phase1El = document.querySelector('#phase-1');
-			if (!heroEl || !phase1El) return;
-
-			const heroRect = heroEl.getBoundingClientRect();
-			const phase1Rect = phase1El.getBoundingClientRect();
-			
-			// Animate from early in hero scroll to phase-1 entrance
-			const scrollStart = window.innerHeight * 0.6;
-			const scrollEnd = -window.innerHeight * 0.5;
-			
-			let progress = (scrollStart - heroRect.bottom) / (scrollStart - scrollEnd);
-			progress = Math.max(0, Math.min(1, progress));
-			
-			scrollProgress.set(progress);
-		};
-
-		window.addEventListener('scroll', handleScroll, { passive: true });
-		handleScroll();
-
 		return () => {
-			window.removeEventListener('scroll', handleScroll);
 			cancelAnimationFrame(animationFrame);
 		};
 	});
 
 	function getStyle(p) {
 		const time = Date.now() / 1000;
-		const floatY = Math.sin(time * p.floatSpeed + p.floatOffset) * 8;
-		const floatX = Math.cos(time * p.floatSpeed * 0.7 + p.floatOffset) * 4;
+		const isContent = position === 'content';
 		
-		// Calculate target position in calendar area
-		const targetY = 15 + (p.id % 7) * 3;
-		const targetX = 10 + ((p.id * 7) % 80);
+		// Content particles float much slower and with smaller amplitude
+		const speedMultiplier = isContent ? 0.15 : 1;
+		const amplitudeY = isContent ? 3 : 8;
+		const amplitudeX = isContent ? 3 : 4;
 		
-		// Interpolate from start to target based on scroll
-		const currentX = p.startX + (targetX - p.startX) * $scrollProgress;
-		const currentY = p.startY + (targetY - p.startY) * $scrollProgress;
-		
-		// Reduce floating as we approach calendar
-		const floatAmount = 1 - $scrollProgress;
-		
-		// Keep particles visible until calendar reaches full opacity, then fade out quickly
-		// Calendar reaches full opacity at progress ~0.4 (opacity = progress * 2.5 = 1)
-		const opacity = p.opacity * Math.max(0, 1 - Math.max(0, ($scrollProgress - 0.2) * 5));
+		// Use independent offsets and speeds for more random floating
+		const floatY = Math.sin(time * p.floatSpeed * speedMultiplier + p.floatOffset) * amplitudeY;
+		const floatX = Math.cos(time * p.floatSpeedX * speedMultiplier + p.floatOffsetX) * amplitudeX;
 		
 		return `
-			left: ${currentX + floatX * floatAmount}%;
-			top: ${currentY + floatY * floatAmount}%;
-			opacity: ${opacity};
+			left: ${p.x + floatX}%;
+			top: ${p.y + floatY}%;
+			opacity: ${p.opacity};
 		`;
 	}
 </script>
 
-<div class="particles-container">
+<div class="particles-container" class:is-footer={position === 'bottom'} class:is-content={position === 'content'}>
 	{#each particles as particle (particle.id)}
 		<div
 			class="particle"
@@ -92,14 +67,28 @@
 
 <style>
 	.particles-container {
-		position: fixed;
+		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100vh;
 		pointer-events: none;
 		overflow: visible;
-		z-index: 10;
+		z-index: 1;
+	}
+
+	.particles-container.is-footer {
+		position: absolute;
+		height: 100%;
+		top: 0;
+	}
+
+	.particles-container.is-content {
+		position: absolute;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 5;
 	}
 
 	.particle {

@@ -1,4 +1,9 @@
+<script>
+	import FloatingParticles from './FloatingParticles.svelte';
+</script>
+
 <footer id="contact">
+	<FloatingParticles position="bottom" count={15} />
 	<div class="footer-content">
 		<div class="contact-section">
 			<span class="section-label">Data Period</span>
@@ -14,9 +19,11 @@
 
 <style>
 	footer {
+		position: relative;
 		padding: 3rem 1.5rem;
 		border-top: 1px solid rgba(255, 139, 76, 0.2);
 		opacity: 0.7;
+		overflow: hidden;
 	}
 
 	.footer-content {

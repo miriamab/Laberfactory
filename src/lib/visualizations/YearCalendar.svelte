@@ -1,7 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
-	import { scrollProgress } from '../stores';
 
 	let container;
 	const startYear = 2020;
@@ -241,36 +240,13 @@
 
 	onMount(async () => {
 		calendarData = await loadCsvData();
-		
-		// Subscribe to scroll progress
-		const unsubscribe = scrollProgress.subscribe(progress => {
-			const phase1El = document.querySelector('#phase-1');
-			if (!phase1El) return;
-			
-			// Fade in phase-1 synchronized with particles fading out - use same multiplier
-			const opacity = Math.min(1, progress * 2.5);
-			phase1El.style.opacity = opacity;
-			phase1El.style.pointerEvents = progress < 0.15 ? 'none' : 'auto';
-		});
-		
 		drawCalendar();
-		
-		return unsubscribe;
 	});
 </script>
 
 <section class="year-calendar" bind:this={container}></section>
 
 <style>
-	#phase-1 {
-		opacity: 0;
-		transition: opacity 0.5s ease-in-out;
-		padding: 2rem;
-		box-sizing: border-box;
-		max-width: 100%;
-		overflow: hidden;
-	}
-
 	.year-calendar {
 		padding: 0rem 1.5rem;
 		width: 100%;

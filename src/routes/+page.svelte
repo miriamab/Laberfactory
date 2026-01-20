@@ -15,8 +15,11 @@
 	<Hero />
 </section>
 
-<!-- Phase 1: Duration -->
-<section id="phase-1" class="section">
+<div class="content-wrapper">
+	<FloatingParticles position="content" count={12} />
+	
+	<!-- Phase 1: Duration -->
+	<section id="phase-1" class="section">
 	<div class="phase-header">
 		<h2>DURATION</h2>
 		<p>Each orange dot represents a day with tracked athletic activity.</p>
@@ -60,10 +63,15 @@
 	</div>
 	<ActivityBubbles />
 </section>
+</div>
 
 <Footer />
 
 <style>
+	.content-wrapper {
+		position: relative;
+	}
+
 	.section {
 		min-height: 10vh;
 		padding-top: 10rem;
