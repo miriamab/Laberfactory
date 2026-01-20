@@ -14,7 +14,8 @@ const config = {
 		paths: {
 			//TODO: If deploying to a subdirectory (e.g. GitHub Pages project site), set the base path here.
 			// Example: base: '/your-repo-name'
-			base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
+			base: process.argv.includes('dev') ? '' : (process.env.BASE_PATH || '/LetsMove'),
+			relative: false
 		}
 	}
 };
