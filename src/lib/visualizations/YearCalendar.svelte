@@ -9,6 +9,15 @@
 	const cellGapX = 10;
     const cellGapY = 4;
 
+	const yearTexts = {
+		2020: "Pandemic lockdowns provided a significant increase in available time, leading to a massive surge in overall training volume.",
+		2021: "Continued lockdown combined with focused training for a half-marathon.",
+		2022: "A transition year where I discovered basketball, causing a noticeable decline in recorded running sessions.",
+		2023: "Basketball twice a week; however, these hours remain unrecorded in the digital dataset.",
+		2024: "The end of my basketball era overlaping with the start of University, leading to more irregular training patterns.",
+		2025: "New gym membership since October and returning to more running."
+	};
+
 	let calendarData = $state({});
 
 	function parseCsv(text) {
@@ -132,8 +141,8 @@
 			// Add year overlay as SVG text (hidden by default, shown on hover)
 			const yearLabel = svg
 				.append('text')
-				.attr('class', 'year-label')
-				.attr('x', svgWidth / 2)
+				.attr('class', 'year-label overlay-text')
+				.attr('x', svgWidth * 0.25)
 				.attr('y', svgHeight / 2)
 				.attr('font-size', '72px')
 				.attr('font-weight', 'bold')
@@ -144,21 +153,43 @@
 				.attr('pointer-events', 'none')
 				.text(year);
 
+			const infoLabel = svg
+				.append('foreignObject')
+				.attr('class', 'info-label overlay-text')
+				.attr('x', svgWidth * 0.5)
+				.attr('y', svgHeight / 2 - 40)
+				.attr('width', svgWidth * 0.45)
+				.attr('height', 80)
+				.attr('opacity', 0)
+				.style('pointer-events', 'none');
+
+			infoLabel
+				.append('xhtml:div')
+				.style('font-size', '16px')
+				.style('color', '#ff8b4c')
+				.style('line-height', '1.4')
+				.style('height', '100%')
+				.style('display', 'flex')
+				.style('align-items', 'center')
+				.text(yearTexts[year] || "Keine Beschreibung verfügbar.");
+
 			// Add hover effect with JavaScript
 			yearGroup
 				.on('mouseenter', function() {
 					// Fade out all circles and month labels
-					svg.selectAll('.day').attr('opacity', 0.3);
-					svg.selectAll('text:not(.year-label)').attr('opacity', 0.3);
-					// Show year label
+					svg.selectAll('.day').attr('opacity', 0.1);
+					svg.selectAll('text:not(.overlay-text)').attr('opacity', 0.1);
+					// Show overlays
 					yearLabel.attr('opacity', 1);
+					infoLabel.attr('opacity', 1);
 				})
 				.on('mouseleave', function() {
 					// Restore circles and month labels to original opacity
 					svg.selectAll('.day').attr('opacity', 1);
-					svg.selectAll('text:not(.year-label)').attr('opacity', 0.5);
-					// Hide year label
+					svg.selectAll('text:not(.overlay-text)').attr('opacity', 0.5);
+					// Hide overlays
 					yearLabel.attr('opacity', 0);
+					infoLabel.attr('opacity', 0);
 				});
 
 			// Month labels
@@ -276,11 +307,11 @@
 		transition: opacity 0.4s ease;
 	}
 
-	:global(.calendar-svg text:not(.year-label)) {
+	:global(.calendar-svg text:not(.overlay-text)) {
 		transition: opacity 0.4s ease;
 	}
 
-	:global(.year-label) {
+	:global(.overlay-text) {
 		transition: opacity 0.4s ease;
 	}
 

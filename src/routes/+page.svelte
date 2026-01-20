@@ -22,7 +22,7 @@
 	<section id="phase-1" class="section">
 	<div class="phase-header">
 		<h2>DURATION</h2>
-		<p>Each orange dot represents a day with tracked athletic activity.</p>
+		<p>Each orange dot represents a single day of tracked athletic activity. This multi-year grid maps my consistency over 70 months, allowing you to hover over each year to reveal a personal note of that period's training patterns.</p>
 	</div>
 	<YearCalendar />
 </section>
@@ -31,7 +31,7 @@
 <section id="phase-2" class="section">
 	<div class="phase-header">
 		<h2>DISTANCE</h2>
-		<p>Each dot represents a fixed distance, marking the extreme activity peaks during the lockdown years.</p>
+		<p>Focusing exclusively on running data, each dot represents a distance unit stacked vertically. This visualization clearly exposes the massive volume peaks during the lockdown years.</p>
 	</div>
 	<DistanceChart />
 </section>
@@ -40,7 +40,7 @@
 <section id="phase-3" class="section">
 	<div class="phase-header">
 		<h2>ENDURANCE</h2>
-		<p>A calendar where each entry offers a closer look at a single week.</p>
+		<p>A weekly calendar where each entry offers a closer look at my personal schedule. By selecting between peak, standard, and recovery weeks, you can inspect how I structured my discipline and time investment during different phases.</p>
 	</div>
 	<WeekCalendar />
 </section>
@@ -49,7 +49,7 @@
 <section id="phase-4" class="section">
 	<div class="phase-header">
 		<h2>PACE</h2>
-		<p>A closer look into a single session where we can see path, pace, and heart rate.
+		<p>A closer look into a single session where geographic GPS data and biometric performance converge. This dashboard showes my path, pace, and heart rate to point out the effort of an individual run.
 		</p>
 	</div>
 	<PaceMap />
@@ -59,7 +59,7 @@
 <section id="phase-5" class="section">
 	<div class="phase-header">
 		<h2>FORCE</h2>
-		<p>Total training hours across all activities.</p>
+		<p>Each bubble represents the total hours invested in a specific activity. The varying sizes visualize the distribution of effort across all disciplines, revealing cardio & strength training dominated my 70-month journey.</p>
 	</div>
 	<ActivityBubbles />
 </section>
