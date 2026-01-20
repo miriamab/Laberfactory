@@ -1,5 +1,7 @@
 # Data Visualization: Let's move
 
+![](readme_image.png)
+
 This project is a data visualization built with Svelte and Vite. It visualizes personal activity datasets like running, cycling, cardio and strength training.
 
 ## Getting Started
