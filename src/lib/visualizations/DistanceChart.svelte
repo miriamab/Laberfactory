@@ -98,7 +98,7 @@
 
 		d3.select(container).selectAll('*').remove();
 
-		const margin = { top: 20, right: 40, bottom: 40, left: 60 };
+		const margin = { top: 20, right: 120, bottom: 40, left: 60 };
 		const maxKm = Math.max(...chartData.map(d => d.km));
 		const maxCircles = Math.round((maxKm / maxKm) * 80);
 		const calculatedWidth = maxCircles * (cellSize + cellGapX) + 100;
@@ -119,7 +119,7 @@
 			.attr('width', '100%')
 			.attr('height', height + margin.top + margin.bottom)
 			.attr('viewBox', `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
-			.attr('preserveAspectRatio', 'xMinYMid')
+			.attr('preserveAspectRatio', 'xMidYMid meet')
 			.attr('class', 'distance-chart');
 
 		const g = svg.append('g')
@@ -206,6 +206,16 @@
 	.distance-chart-container {
 		display: flex;
 		justify-content: center;
+		align-items: center;
+		width: 100%;
+		overflow-x: auto;
+		padding: 1.5rem 0;
+	}
+
+	:global(.distance-chart) {
+		max-width: 100%;
+		height: auto;
+		display: block;
 	}
 
 	:global(.distance-chart text) {

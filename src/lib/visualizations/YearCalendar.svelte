@@ -107,8 +107,19 @@
 				.append('div')
 				.attr('class', 'year-block');
 
-			const weeksInYear = 54;
-			const svgWidth = weeksInYear * (cellSize + cellGapX) - cellGapX + 20;
+			// Calculate total weeks first to determine SVG width
+			let totalWeeks = 0;
+			const monthPositions = [0];
+			
+			for (let month = 0; month < 12; month++) {
+				const daysInMonth = new Date(year, month + 1, 0).getDate();
+				const firstDay = new Date(year, month, 1).getDay();
+				const weeksInMonth = Math.ceil((firstDay + daysInMonth) / 7);
+				totalWeeks += weeksInMonth;
+				monthPositions.push(totalWeeks);
+			}
+
+			const svgWidth = totalWeeks * (cellSize + cellGapX) - cellGapX + 20;
 			const svgHeight = 7 * (cellSize + cellGapY) - cellGapY + 40;
 
 			const svg = yearGroup
@@ -116,7 +127,7 @@
 				.attr('width', '100%')
 				.attr('height', svgHeight)
 				.attr('viewBox', `0 0 ${svgWidth} ${svgHeight}`)
-				.attr('preserveAspectRatio', 'xMinYMid')
+				.attr('preserveAspectRatio', 'xMidYMid meet')
 				.attr('class', 'calendar-svg');
 
 			// Add year overlay as SVG text (hidden by default, shown on hover)
@@ -151,14 +162,9 @@
 					yearLabel.attr('opacity', 0);
 				});
 
-			// Month labels: calculate week positions per month upfront
-			const monthPositions = [0];
-			let weekOffset = 0;
+			// Month labels
 			for (let month = 0; month < 12; month++) {
-				const daysInMonth = new Date(year, month + 1, 0).getDate();
-				const firstDay = new Date(year, month, 1).getDay();
-				const weeksInMonth = Math.ceil((firstDay + daysInMonth) / 7);
-				const x = weekOffset * (cellSize + cellGapX) + cellSize ;
+				const x = monthPositions[month] * (cellSize + cellGapX) + cellSize ;
 				svg
 					.append('text')
 					.attr('x', x)
@@ -169,8 +175,6 @@
 					.attr('text-anchor', 'middle')				
                     .attr('opacity', 0.5)					
                     .text(monthLabels[month]);
-				weekOffset += weeksInMonth;
-				monthPositions.push(weekOffset);
 			}
 
 			// Draw all days of the year
@@ -258,18 +262,38 @@
 <section class="year-calendar" bind:this={container}></section>
 
 <style>
+	#phase-1 {
+		opacity: 0;
+		transition: opacity 0.5s ease-in-out;
+		padding: 2rem;
+		box-sizing: border-box;
+		max-width: 100%;
+		overflow: hidden;
+	}
+
 	.year-calendar {
 		padding: 0rem 1.5rem;
+		width: 100%;
+		box-sizing: border-box;
+		overflow-x: auto;
 	}
 
 	.year-block {
-		margin-bottom: 3rem;
+		margin-bottom: 2rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		min-width: 0;
 	}
 
 	.calendar-svg {
+		max-width: 100%;
+		height: auto;
 		display: block;
 		margin-bottom: 2rem;
 		overflow: visible;
+		flex-shrink: 0;
 	}
 
 	:global(.calendar-svg .day) {

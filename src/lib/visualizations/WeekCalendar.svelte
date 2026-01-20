@@ -410,15 +410,20 @@
 
 	.week-grid {
 		display: grid;
-		grid-template-columns: repeat(7, 1fr);
+		grid-template-columns: repeat(7, minmax(80px, 1fr));
 		gap: 1rem;
-		max-width: 1000px;
+		max-width: 1200px;
+		width: 100%;
+	}
+
+	.week-calendar-container {
+		overflow-x: auto;
 	}
 
 	.day-column {
 		display: flex;
 		flex-direction: column;
-		min-width: 120px;
+		min-width: 80px;
 	}
 
 	.day-header {
