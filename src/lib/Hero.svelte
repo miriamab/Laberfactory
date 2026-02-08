@@ -1,13 +1,19 @@
 <section>
-	<div class="content">
-		<h1 class="animate-fade-in">
-			LET'S
-			<br />
-			MOVE
-		</h1>
+	<div class="hero-container">
 		<p class="animate-fade-in" style="animation-delay: 0.2s;">
-            This project is a personal data visualization looking at 70 months of my athletic history.
-            From running to strength training, every session was tracked with my sports watch.
+			Der Podcast. Zufällig. Relevant. Ohne Themenlimits.
+		</p>
+		<div class="hero-image">
+			<img src="/Laberfactory.png" alt="Laberfactory" />
+		</div>
+		<p class="animate-fade-in" style="animation-delay: 0.2s;">
+			Der Podcast über Politik, Sport, Musik, Technologie, KI, Freundschaft, Umwelt und vieles mehr.
+		</p>
+		<p class="animate-fade-in" style="animation-delay: 0.2s;">
+			Angefangen hat Ende 2025 alles als reines Spaß-Projekt, um öfter mal wieder mit Freunden, 
+			Familie und Bekannten zu quatschen. Mittlerweile mache ich (Faris) auch regelmässig 
+			Podcasts in denen wir spezifisch in ein ganz bestimmtes Thema eintauchen, mit Gästen, 
+			die sich auskennen. Schaut einfach öfter mal vorbei, neue Folgen werden regelmäßig veröffentlicht.
 		</p>
 	</div>
 </section>
@@ -16,54 +22,62 @@
 	section {
 		min-height: 100vh;
 		display: flex;
-		flex-direction: column;
+		align-items: center;
 		justify-content: center;
-		padding: 0 1.5rem 0;
+		padding: 6rem 2rem 2rem;
 	}
 
-	.content {
-		max-width: 80rem;
+	.hero-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 2rem;
+		max-width: 500px;
 	}
 
-	h1 {
-		font-size: 3rem;
-		font-weight: 700;
-		letter-spacing: -0.05em;
-		line-height: 1;
-		margin-bottom: 2rem;
+	.hero-image {
+		width: 400px;
+	}
+
+	.hero-image img {
+		width: 200%;
+		height: auto;
+		display: block;
+
 	}
 
 	p {
-		font-size: 0.875rem;
-		opacity: 0.7;
-		max-width: 28rem;
-		letter-spacing: 0.025em;
+		font-size: 1rem;
+		font-weight: 400;
+		color: #050510;
+		opacity: 0.8;
 		line-height: 1.6;
-	}
-
-	@media (min-width: 640px) {
-		h1 {
-			font-size: 4.5rem;
-		}
+		margin: 0;
+		filter: drop-shadow(0 0 70px rgba(171, 242, 240, 0.7));
 	}
 
 	@media (min-width: 768px) {
-		section {
-			padding: 5rem 3rem 0;
-		}
-
-		h1 {
-			font-size: 6rem;
+		.hero-image {
+			width: 280px;
 		}
 
 		p {
-			font-size: 1rem;
+			font-size: 1.1rem;
 		}
 	}
 
-	@media (min-width: 1024px) {
-		h1 {
-			font-size: 8rem;
+	@media (max-width: 640px) {
+		.hero-container {
+			gap: 1.5rem;
+		}
+
+		.hero-image {
+			width: 150px;
+		}
+
+		p {
+			font-size: 0.9rem;
 		}
 	}
 </style>

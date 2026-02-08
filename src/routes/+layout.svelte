@@ -1,18 +1,14 @@
 <script>
-	import favicon from '$lib/assets/favicon.svg';
-	import Header from '$lib/Header.svelte';
-	import InteractiveGrid from '$lib/InteractiveGrid.svelte';
 	import '../app.css';
 
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<title>Laberfactory</title>
+	<meta name="description" content="Spannende Gespräche über Technologie, Innovation und die digitale Zukunft" />
 </svelte:head>
 
-<InteractiveGrid />
-<Header />
 <main>
 	{@render children()}
 </main>

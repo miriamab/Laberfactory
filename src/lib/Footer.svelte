@@ -1,85 +1,89 @@
-<script>
-	import FloatingParticles from './FloatingParticles.svelte';
-</script>
-
-<footer id="contact">
-	<FloatingParticles position="bottom" count={15} />
+<footer>
 	<div class="footer-content">
-		<div class="contact-section">
-			<span class="section-label">Data Period</span>
-			<a>Feb 2020 – Nov 2025 (70 Months)</a>
+		<div class="footer-brand">
+			<span class="logo">Laberfactory</span>
+			<p>Zufällig. Relevant. Ohne Themenlimits.</p>
+		</div>
+		<div class="footer-links">
+			<a href="mailto:podcast@laberfactory.de">Kontakt</a>
+			<span class="divider">·</span>
+			<a href="#">Spotify</a>
+			<span class="divider">·</span>
+			<a href="#">Apple Podcasts</a>
 		</div>
 	</div>
-
 	<div class="footer-bottom">
-		<span>Miriam Abbas</span>
-		<span>Information Design Winter Semester 2025/26</span>
+		<span>© 2026 Laberfactory</span>
 	</div>
 </footer>
 
 <style>
 	footer {
-		position: relative;
-		padding: 3rem 1.5rem;
-		border-top: 1px solid rgba(255, 139, 76, 0.2);
-		opacity: 0.7;
-		overflow: hidden;
+		padding: 4rem 2rem 2rem;
+		border-top: 1px solid rgba(5, 5, 16, 0.15);
+		max-width: 1200px;
+		margin: 0 auto;
 	}
 
 	.footer-content {
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
+		margin-bottom: 3rem;
 	}
 
-	.contact-section {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.section-label {
-        
-		font-size: 0.6rem;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
+	.footer-brand .logo {
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: #050510;
 		display: block;
+		margin-bottom: 0.5rem;
+	}
+
+	.footer-brand p {
+		font-size: 0.9rem;
+		opacity: 0.6;
+		margin: 0;
+		color: #050510;
+	}
+
+	.footer-links {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.footer-links a {
+		color: #050510;
+		text-decoration: none;
+		font-size: 0.9rem;
+		transition: color 0.2s;
+	}
+
+	.footer-links a:hover {
+		opacity: 0.6;
+	}
+
+	.divider {
+		opacity: 0.3;
 	}
 
 	.footer-bottom {
-		margin-top: 4rem;
-		padding-top: 1.5rem;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		font-size: 0.6rem;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
+		font-size: 0.8rem;
+		opacity: 0.5;
+		color: #050510;
 	}
 
 	@media (min-width: 768px) {
 		footer {
-            margin-top: 10rem;
-			padding: 4rem 3rem;
-		}
-
-		.section-label {
-			font-size: 0.8rem;
+			padding: 5rem 4rem 2rem;
 		}
 
 		.footer-content {
 			flex-direction: row;
-			align-items: flex-end;
 			justify-content: space-between;
-		}
-
-
-		.footer-bottom {
-            font-size: 0.8rem;
-			margin-top: 6rem;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
+			align-items: flex-start;
 		}
 	}
 </style>
