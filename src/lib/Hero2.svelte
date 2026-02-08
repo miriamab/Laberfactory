@@ -1,15 +1,15 @@
 <section>
 	<div class="hero-container">
-		<p class="animate-fade-in" style="animation-delay: 0.2s;">
+		<p>
 			Der Podcast. Zufällig. Relevant. Ohne Themenlimits.
 		</p>
 		<div class="hero-image">
 			<img src="/Laberfactory.png" alt="Laberfactory" />
 		</div>
-		<p class="animate-fade-in" style="animation-delay: 0.2s;">
+		<p>
 			Der Podcast über Politik, Sport, Musik, Technologie, KI, Freundschaft, Umwelt und vieles mehr.
 		</p>
-		<p class="animate-fade-in" style="animation-delay: 0.2s;">
+		<p>
 			Angefangen hat Ende 2025 alles als reines Spaß-Projekt, um öfter mal wieder mit Freunden, 
 			Familie und Bekannten zu quatschen. Mittlerweile mache ich (Faris) auch regelmässig 
 			Podcasts in denen wir spezifisch in ein ganz bestimmtes Thema eintauchen, mit Gästen, 
@@ -24,7 +24,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 6rem 2rem 2rem;
+		padding: 8rem 2rem 2rem;
 	}
 
 	.hero-container {
@@ -32,19 +32,18 @@
 		flex-direction: column;
 		align-items: center;
 		text-align: center;
-		gap: 2rem;
-		max-width: 500px;
+		gap: 20rem;
+		max-width: 700px;
 	}
 
 	.hero-image {
-		width: 400px;
+		width: 600px;
 	}
 
 	.hero-image img {
-		width: 200%;
+		width: 100%;
 		height: auto;
 		display: block;
-
 	}
 
 	p {
@@ -54,14 +53,10 @@
 		opacity: 0.8;
 		line-height: 1.6;
 		margin: 0;
-		filter: drop-shadow(0 0 70px rgba(171, 242, 240, 0.7));
+		text-align: justify;
 	}
 
 	@media (min-width: 768px) {
-		.hero-image {
-			width: 280px;
-		}
-
 		p {
 			font-size: 1.1rem;
 		}

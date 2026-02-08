@@ -1,16 +1,19 @@
 <script>
 	import Header from '$lib/Header.svelte';
-	import Hero from '$lib/Hero.svelte';
+	import HeroIntro from '$lib/Hero1.svelte';
+	import Hero from '$lib/Hero2.svelte';
 	import PodcastEpisodes from '$lib/PodcastEpisodes.svelte';
 	import Footer from '$lib/Footer.svelte';
 </script>
 
 <Header />
 
+<HeroIntro />
+
 <Hero />
 
 <section class="episodes">
-	<h2>Episoden</h2>
+	<h2>Episodenliste</h2>
 	<PodcastEpisodes />
 </section>
 
@@ -21,26 +24,17 @@
 		padding: 8rem 2rem;
 		max-width: 1200px;
 		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
 	h2 {
-		font-size: 2rem;
-		font-weight: 600;
+		font-size: 1.5rem;
+		font-weight: 500;
 		color: #050510;
 		margin-bottom: 3rem;
-		position: relative;
-		display: inline-block;
-	}
-
-	h2::after {
-		content: '';
-		position: absolute;
-		bottom: -8px;
-		left: 0;
-		width: 40px;
-		height: 3px;
-		background: #050510;
-		border-radius: 2px;
+		text-align: center;
 	}
 
 	@media (min-width: 768px) {
@@ -49,7 +43,7 @@
 		}
 
 		h2 {
-			font-size: 2.5rem;
+			font-size: 1.5rem;
 		}
 	}
 </style>

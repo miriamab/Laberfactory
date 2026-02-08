@@ -2,14 +2,12 @@
 	<div class="footer-content">
 		<div class="footer-brand">
 			<span class="logo">Laberfactory</span>
-			<p>Zufällig. Relevant. Ohne Themenlimits.</p>
+			<p>Der Podcast. Zufällig. Relevant. Ohne Themenlimits.</p>
 		</div>
 		<div class="footer-links">
 			<a href="mailto:podcast@laberfactory.de">Kontakt</a>
 			<span class="divider">·</span>
-			<a href="#">Spotify</a>
-			<span class="divider">·</span>
-			<a href="#">Apple Podcasts</a>
+			<a href="#">Privacy Policy</a>
 		</div>
 	</div>
 	<div class="footer-bottom">
@@ -34,7 +32,7 @@
 
 	.footer-brand .logo {
 		font-size: 1.25rem;
-		font-weight: 700;
+		font-weight: 500;
 		color: #050510;
 		display: block;
 		margin-bottom: 0.5rem;
