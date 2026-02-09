@@ -1,20 +1,4 @@
-<section class="hero-section">
-	<div class="section-content">
-		<p>
-			Der Podcast. Zufällig. Relevant. Ohne Themenlimits.
-		</p>
-	</div>
-</section>
-
-<section class="hero-section">
-	<div class="section-content">
-		<div class="hero-image">
-			<img src="/Laberfactory.png" alt="Laberfactory" />
-		</div>
-	</div>
-</section>
-
-<section class="hero-section">
+<section class="text-section dark">
 	<div class="section-content">
 		<div class="text-block">
 			<p>
@@ -31,19 +15,22 @@
 </section>
 
 <style>
-	.hero-section {
+	.text-section {
 		min-height: 100vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 8rem 2rem 2rem;
+		padding: 2rem;
+	}
+
+	.text-section.dark {
+		background: #111011;
 	}
 
 	.section-content {
 		display: flex;
-		flex-direction: column;
 		align-items: center;
-		text-align: center;
+		justify-content: center;
 		max-width: 700px;
 	}
 
@@ -51,16 +38,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-	}
-
-	.hero-image {
-		width: 600px;
-	}
-
-	.hero-image img {
-		width: 100%;
-		height: auto;
-		display: block;
 	}
 
 	p {
@@ -73,6 +50,10 @@
 		text-align: justify;
 	}
 
+	.text-section.dark p {
+		color: #f0ecec;
+	}
+
 	@media (min-width: 768px) {
 		p {
 			font-size: 1.1rem;
@@ -82,10 +63,6 @@
 	@media (max-width: 640px) {
 		.text-block {
 			gap: 1rem;
-		}
-
-		.hero-image {
-			width: 150px;
 		}
 
 		p {
