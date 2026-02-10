@@ -193,21 +193,19 @@
 	}
 
 	.episodes {
-		padding: 4rem 2rem 2rem;
-		max-width: 1200px;
-		margin: 0 auto;
+		padding: 3rem 2rem 1rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		flex: 1;
-		overflow-y: auto;
+		min-height: 0;
 	}
 
 	h2 {
 		font-size: 1.5rem;
 		font-weight: 500;
 		color: #050510;
-		margin-bottom: 3rem;
+		margin-bottom: 2rem;
 		text-align: center;
 	}
 

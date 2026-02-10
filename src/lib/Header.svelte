@@ -38,7 +38,7 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
-		min-height: 60px;
+		min-height: 20px;
 	}
 
 	h1 {
