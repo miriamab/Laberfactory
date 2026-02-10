@@ -5,7 +5,6 @@
 	import ImageSection from '$lib/ImageSection.svelte';
 	import TextSection2 from '$lib/TextSection2.svelte';
 	import PodcastEpisodes from '$lib/PodcastEpisodes.svelte';
-	import Footer from '$lib/Footer.svelte';
 	import IntroAnimation from '$lib/IntroAnimation.svelte';
 	import { onMount } from 'svelte';
 
@@ -120,7 +119,20 @@
 				<h2>Episodenliste</h2>
 				<PodcastEpisodes />
 			</section>
-			<Footer />
+			<footer>
+				<div class="footer-content">
+					<div class="footer-line">
+						<span class="logo">Laberfactory</span>
+						<span class="divider">·</span>
+						<p>Der Podcast. Zufällig. Relevant. Ohne Themenlimits.</p>
+					</div>
+					<div class="footer-links">
+						<a href="mailto:podcast@laberfactory.de">Kontakt</a>
+						<span class="divider">·</span>
+						<a href="#">Privacy Policy</a>
+					</div>
+				</div>
+			</footer>
 		</div>
 	</div>
 </div>
@@ -142,8 +154,10 @@
 
 	.final-section {
 		height: 100vh;
-		overflow-y: auto;
 		scroll-snap-type: none;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	}
 
 	.nav-arrow {
@@ -179,13 +193,14 @@
 	}
 
 	.episodes {
-		padding: 8rem 2rem;
+		padding: 4rem 2rem 2rem;
 		max-width: 1200px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		flex: 1;
+		overflow-y: auto;
 	}
 
 	h2 {
@@ -196,13 +211,74 @@
 		text-align: center;
 	}
 
+	footer {
+		padding: 2rem;
+	}
+
+	.footer-content {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-bottom: 0rem;
+	}
+
+	.footer-line {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.logo {
+		font-size: 0.9rem;
+		font-weight: 400;
+		color: #050510;
+		opacity: 0.6;
+		margin: 0;
+	}
+
+	.footer-line p {
+		font-size: 0.9rem;
+		opacity: 0.6;
+		margin: 0;
+		color: #050510;
+	}
+
+	.footer-links {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.footer-links a {
+		color: #050510;
+		text-decoration: none;
+		font-size: 0.9rem;
+		transition: color 0.2s;
+	}
+
+	.footer-links a:hover {
+		opacity: 0.6;
+	}
+
+	.divider {
+		opacity: 0.3;
+	}
+
 	@media (min-width: 768px) {
 		.episodes {
-			padding: 10rem 4rem;
+			padding: 6rem 4rem 3rem;
 		}
 
 		h2 {
 			font-size: 1.5rem;
+		}
+
+		.footer-content {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
 		}
 	}
 </style>
