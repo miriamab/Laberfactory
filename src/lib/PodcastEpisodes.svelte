@@ -54,6 +54,11 @@
 			const currentIndex = episodes.findIndex(ep => ep.id === selectedEpisode.id);
 			if (currentIndex < episodes.length - 1) {
 				selectedEpisode = episodes[currentIndex + 1];
+				// Scroll to top of modal
+				setTimeout(() => {
+					const modalContent = document.querySelector('.modal-content');
+					if (modalContent) modalContent.scrollTop = 0;
+				}, 0);
 			}
 		}
 	}
@@ -63,6 +68,11 @@
 			const currentIndex = episodes.findIndex(ep => ep.id === selectedEpisode.id);
 			if (currentIndex > 0) {
 				selectedEpisode = episodes[currentIndex - 1];
+				// Scroll to top of modal
+				setTimeout(() => {
+					const modalContent = document.querySelector('.modal-content');
+					if (modalContent) modalContent.scrollTop = 0;
+				}, 0);
 			}
 		}
 	}
@@ -127,22 +137,22 @@
 
 {#if selectedEpisode}
 	<div class="modal-overlay" on:click={closeModal}>
+		<button class="modal-nav modal-nav-left" on:click|stopPropagation={prevEpisode} disabled={episodes.findIndex(ep => ep.id === selectedEpisode.id) === 0}>
+			<svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
+				<path d="M15 18l-6-6 6-6v12z"/>
+			</svg>
+		</button>
+		
+		<button class="modal-nav modal-nav-right" on:click|stopPropagation={nextEpisode} disabled={episodes.findIndex(ep => ep.id === selectedEpisode.id) === episodes.length - 1}>
+			<svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
+				<path d="M9 18l6-6-6-6v12z"/>
+			</svg>
+		</button>
+		
 		<div class="modal-content" on:click|stopPropagation>
 			<button class="modal-close" on:click={closeModal}>
 				<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
 					<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-				</svg>
-			</button>
-			
-			<button class="modal-nav modal-nav-left" on:click={prevEpisode} disabled={episodes.findIndex(ep => ep.id === selectedEpisode.id) === 0}>
-				<svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
-					<path d="M15 18l-6-6 6-6v12z"/>
-				</svg>
-			</button>
-			
-			<button class="modal-nav modal-nav-right" on:click={nextEpisode} disabled={episodes.findIndex(ep => ep.id === selectedEpisode.id) === episodes.length - 1}>
-				<svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
-					<path d="M9 18l6-6-6-6v12z"/>
 				</svg>
 			</button>
 			
@@ -158,13 +168,13 @@
 				</div>
 				<p class="modal-description description-with-paragraphs">{selectedEpisode.fullDescription}</p>
 				<div class="modal-links">
-					<a href="#" aria-label="YouTube" title="YouTube">
+					<a href="https://youtube.com/playlist?list=PLWPtrHZlfcFhVg55CDHb5uQZIzCf8LHHq&si=6AQbbRoHOGpP6ZxG" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube">
 						<img src="/icons8-youtube.svg" alt="YouTube" />
 					</a>
-					<a href="#" aria-label="Spotify" title="Spotify">
+					<a href="https://open.spotify.com/show/7aBtsmon2ffPWEqEr8cB88" target="_blank" rel="noopener noreferrer" aria-label="Spotify" title="Spotify">
 						<img src="/icons8-spotify.svg" alt="Spotify" />
 					</a>
-					<a href="#" aria-label="Apple Podcasts" title="Apple Podcasts">
+					<a href="https://podcasts.apple.com/us/podcast/laberfactory/id1856938434" target="_blank" rel="noopener noreferrer" aria-label="Apple Podcasts" title="Apple Podcasts">
 						<img src="/icons8-apple-podcasts-96.png" alt="Apple Podcasts" />
 					</a>
 				</div>
@@ -269,23 +279,26 @@
 	}
 
 	.modal-nav {
-		position: absolute;
+		position: fixed;
 		top: 50%;
 		transform: translateY(-50%);
 		background: none;
 		border: none;
 		cursor: pointer;
-		color: #050510;
-		padding: 1rem;
+		color: #f0ecec;
+		padding: 2rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		transition: all 0.3s ease;
-		z-index: 10;
+		z-index: 1002;
+		min-width: 80px;
+		min-height: 80px;
 	}
 
 	.modal-nav:hover:not(:disabled) {
-		color: rgba(5, 5, 16, 0.6);
+		color: rgba(240, 236, 236, 0.7);
+		transform: translateY(-50%) scale(1.1);
 	}
 
 	.modal-nav:disabled {
@@ -298,11 +311,11 @@
 	}
 
 	.modal-nav-left {
-		left: 0.5rem;
+		left: calc(50% - 450px - 80px);
 	}
 
 	.modal-nav-right {
-		right: 0.5rem;
+		right: calc(50% - 450px - 80px);
 	}
 
 	.modal-body {
