@@ -1,3 +1,7 @@
 # Laberfactory
 
-This is the repository for the Website "Laberfactory - Der Podcast"
+This is the code for the Website "Laberfactory - Der Podcast"
+
+The website is available at: (insert)
+
+![Laberfactory](/static/Laberfactory.png)
