@@ -2,13 +2,13 @@
 	<div class="header-content">
 		<h1>Laberfactory</h1>
 		<div class="social-links">
-			<a href="#" aria-label="YouTube" title="YouTube">
+			<a href="https://youtube.com/playlist?list=PLWPtrHZlfcFhVg55CDHb5uQZIzCf8LHHq&si=6AQbbRoHOGpP6ZxG" target="_blank" aria-label="YouTube" title="YouTube">
 				<img src="/icons8-youtube.svg" alt="YouTube" />
 			</a>
-			<a href="#" aria-label="Spotify" title="Spotify">
+			<a href="https://open.spotify.com/show/7aBtsmon2ffPWEqEr8cB88" target="_blank" aria-label="Spotify" title="Spotify">
 				<img src="/icons8-spotify.svg" alt="Spotify" />
 			</a>
-			<a href="#" aria-label="Apple Podcasts" title="Apple Podcasts">
+			<a href="https://podcasts.apple.com/us/podcast/laberfactory/id1856938434" target="_blank" aria-label="Apple Podcasts" title="Apple Podcasts">
 				<img src="/icons8-apple-podcasts-96.png" alt="Apple Podcasts" />
 			</a>
 		</div>
