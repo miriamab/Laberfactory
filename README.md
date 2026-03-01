@@ -7,4 +7,4 @@ The website is available at: (insert)
 ![Laberfactory](/static/Laberfactory.png)
 
 
-Start project local with: 'npm run dev'
+Start project local with: `npm run dev`

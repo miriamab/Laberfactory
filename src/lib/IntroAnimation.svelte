@@ -5,6 +5,12 @@
 	let animating = false;
 
 	onMount(() => {
+		// Statisches Overlay aus app.html entfernen - IntroAnimation übernimmt
+		const initialOverlay = document.getElementById('initial-overlay');
+		if (initialOverlay) {
+			initialOverlay.remove();
+		}
+
 		// Kurze Pause bevor die Animation startet
 		setTimeout(() => {
 			animating = true;

@@ -1,10 +1,13 @@
 <script>
 	function scrollToTop() {
-		// Immer zur ersten Sektion scrollen (da alles auf einer Seite ist)
-		const section0 = document.getElementById('section-0');
-		if (section0) {
-			section0.scrollIntoView({ behavior: 'smooth' });
-		}
+		// Sofort Overlay einblenden (kein Glitch)
+		const overlay = document.createElement('div');
+		overlay.id = 'initial-overlay';
+		overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#111011;z-index:9999;';
+		document.body.appendChild(overlay);
+
+		// Event an +page.svelte senden um IntroAnimation neu zu starten
+		document.dispatchEvent(new CustomEvent('headerLogoClick'));
 	}
 </script>
 

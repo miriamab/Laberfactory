@@ -12,7 +12,8 @@
 
 	let isDarkSection = false;
 	let showIntroAnimation = false;
-	let activeTab = 'episodes'; // Standard: Episodenliste
+	let activeTab = 'episodes';
+	let animationKey = 0; // Zum Re-mounten der IntroAnimation
 
 	function switchTab(tab) {
 		activeTab = tab;
@@ -116,6 +117,21 @@
 				}, 0);
 			}
 		});
+
+		// Header Logo Klick: Intro-Animation neu starten
+		document.addEventListener('headerLogoClick', () => {
+			activeTab = 'episodes';
+			showIntroAnimation = true;
+			animationKey++; // Re-mountet IntroAnimation
+
+			// Zur Hero scrollen
+			setTimeout(() => {
+				const container = document.querySelector('.page-container');
+				if (container) container.scrollTop = 0;
+				const section0 = document.getElementById('section-0');
+				if (section0) section0.scrollIntoView({ behavior: 'instant' });
+			}, 0);
+		});
 		
 		updateHeaderState(); // Initial check
 
@@ -130,7 +146,9 @@
 </script>
 
 {#if showIntroAnimation}
-	<IntroAnimation />
+	{#key animationKey}
+		<IntroAnimation />
+	{/key}
 {/if}
 
 <Header />
