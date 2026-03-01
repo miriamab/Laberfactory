@@ -1,10 +1,10 @@
 <script>
 	import Header from '$lib/Header.svelte';
-	import ImageSection from '$lib/ImageSection.svelte';
-	import TextSection2 from '$lib/TextSection2.svelte';
+	import Hero from '$lib/1Hero.svelte';
+	import TextSection from '$lib/2TextSection.svelte';
 	import Episodes from '$lib/Episodes.svelte';
-	import News from '$lib/News.svelte';
-	import PrivacyPolicy from '$lib/PrivacyPolicy.svelte';
+	import News from '$lib/3News.svelte';
+	import PrivacyPolicy from '$lib/3PrivacyPolicy.svelte';
 	import NavigationFooter from '$lib/NavigationFooter.svelte';
 	import IntroAnimation from '$lib/IntroAnimation.svelte';
 	import { hasNavigated } from '$lib/stores.js';
@@ -105,6 +105,16 @@
 		// Event-Listener für Tab-Wechsel vom Footer
 		document.addEventListener('tabChange', (event) => {
 			activeTab = event.detail.tab;
+			
+			// Wenn Privacy Policy, nach oben zur Section-2 scrollen
+			if (event.detail.tab === 'privacy-policy') {
+				setTimeout(() => {
+					const section2 = document.getElementById('section-2');
+					if (section2) {
+						section2.scrollIntoView({ behavior: 'smooth' });
+					}
+				}, 0);
+			}
 		});
 		
 		updateHeaderState(); // Initial check
@@ -125,9 +135,9 @@
 
 <Header />
 
-<div class="page-container">
+<div class="page-container" class:privacy-mode={activeTab === 'privacy-policy'}>
 	<div class="snap-section" id="section-0">
-		<ImageSection />
+		<Hero />
 		<button class="nav-arrow" on:click={() => scrollToNext(0)}>
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
 				<path d="M12 16l-6-6h12l-6 6z"/>
@@ -136,7 +146,7 @@
 	</div>
 
 	<div class="snap-section section-dark" id="section-1">
-		<TextSection2 />
+		<TextSection />
 		<button class="nav-arrow dark-arrow" on:click={() => scrollToNext(1)}>
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
 				<path d="M12 16l-6-6h12l-6 6z"/>
@@ -144,8 +154,8 @@
 		</button>
 	</div>
 
-	<div class="snap-section" id="section-2">
-		<div class="final-section">			
+	<div class="snap-section" id="section-2" class:privacy-active={activeTab === 'privacy-policy'}>
+		<div class="final-section" class:privacy-final={activeTab === 'privacy-policy'}>			
 			<section class="tab-content">
 				{#if activeTab === 'episodes'}
 					<Episodes />
@@ -168,6 +178,17 @@
 		height: 100vh;
 	}
 
+	/* Privacy Policy Modus: kein Snap, sections 0+1 ausgeblendet */
+	.privacy-mode {
+		scroll-snap-type: none;
+		overflow-y: scroll;
+	}
+
+	.privacy-mode #section-0,
+	.privacy-mode #section-1 {
+		display: none;
+	}
+
 	.snap-section {
 		scroll-snap-align: start;
 		height: 100vh;
@@ -182,6 +203,18 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
+	}
+
+	/* Privacy Policy: kein height limit, Footer am Ende */
+	.privacy-active {
+		height: auto;
+		min-height: 100vh;
+	}
+
+	.privacy-final {
+		height: auto;
+		min-height: 100vh;
+		justify-content: flex-start;
 	}
 
 	.nav-arrow {
@@ -223,6 +256,13 @@
 		align-items: center;
 		flex: 1;
 		min-height: 0;
+	}
+
+	/* Privacy Policy tab-content: kein flex:1 Stretch */
+	.privacy-final .tab-content {
+		flex: none;
+		min-height: unset;
+		padding-bottom: 2rem;
 	}
 
 	@media (max-width: 768px) {

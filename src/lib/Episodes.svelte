@@ -1,5 +1,5 @@
 <script>
-	import PodcastEpisodes from './PodcastEpisodes.svelte';
+	import PodcastEpisodes from './3PodcastEpisodes.svelte';
 </script>
 
 <div class="episodes-section">
