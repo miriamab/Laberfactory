@@ -165,6 +165,18 @@
 					<span>{formatDate(selectedEpisode.releaseDate)}</span>
 					<span class="dot">·</span>
 					<span>{selectedEpisode.duration}</span>
+					<span class="dot">·</span>
+					<div class="modal-meta-links">
+						<a href="https://youtube.com/playlist?list=PLWPtrHZlfcFhVg55CDHb5uQZIzCf8LHHq&si=6AQbbRoHOGpP6ZxG" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube">
+							<img src="/icons8-youtube.svg" alt="YouTube" />
+						</a>
+						<a href="https://open.spotify.com/show/7aBtsmon2ffPWEqEr8cB88" target="_blank" rel="noopener noreferrer" aria-label="Spotify" title="Spotify">
+							<img src="/icons8-spotify.svg" alt="Spotify" />
+						</a>
+						<a href="https://podcasts.apple.com/us/podcast/laberfactory/id1856938434" target="_blank" rel="noopener noreferrer" aria-label="Apple Podcasts" title="Apple Podcasts">
+							<img src="/icons8-apple-podcasts-96.png" alt="Apple Podcasts" />
+						</a>
+					</div>
 				</div>
 				<p class="modal-description description-with-paragraphs">{selectedEpisode.fullDescription}</p>
 				<div class="modal-links">
@@ -255,9 +267,9 @@
 	}
 
 	.modal-close {
-		position: absolute;
-		top: 1.5rem;
-		right: 1.5rem;
+		position: fixed;
+		top: calc(5vh + 1.5rem);
+		right: calc(50% - 450px + 1.5rem);
 		background: none;
 		border: none;
 		cursor: pointer;
@@ -267,7 +279,7 @@
 		align-items: center;
 		justify-content: center;
 		transition: opacity 0.3s ease;
-		z-index: 10;
+		z-index: 2001;
 	}
 
 	.modal-close:hover {
@@ -352,6 +364,31 @@
 		color: #050510;
 		opacity: 0.6;
 		margin-bottom: 1.5rem;
+	}
+
+	.modal-meta-links {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-left: 0.25rem;
+	}
+
+	.modal-meta-links a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: opacity 0.3s ease;
+		opacity: 0.6;
+	}
+
+	.modal-meta-links a:hover {
+		opacity: 1;
+	}
+
+	.modal-meta-links img {
+		width: 18px;
+		height: 18px;
+		object-fit: contain;
 	}
 
 	.modal-description {
@@ -571,6 +608,10 @@
 			font-size: 0.8rem;
 		}
 
+		.modal-close {
+			right: calc(50% - 300px + 1.5rem);
+		}
+
 		.modal-body {
 			padding: 2rem 2.5rem;
 		}
@@ -603,6 +644,10 @@
 
 		.modal-overlay {
 			padding: 1rem;
+		}
+
+		.modal-close {
+			right: calc(1rem + 1.5rem);
 		}
 
 		.modal-body {
