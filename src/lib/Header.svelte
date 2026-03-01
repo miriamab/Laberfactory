@@ -23,6 +23,7 @@
 		width: 100%;
 		z-index: 1000;
 		padding-right: 2rem;
+		background: transparent;
 		transition: background-color 0.3s ease;
 	}
 
@@ -69,12 +70,8 @@
 		display: flex;
 		gap: 1.5rem;
 		align-items: center;
-		opacity: 0;
-		transition: opacity 0.3s ease;
-	}
-
-	:global(header.show-title) .social-links {
 		opacity: 1;
+		transition: opacity 0.3s ease;
 	}
 
 	.social-links a {

@@ -1,7 +1,5 @@
 <script>
 	import Header from '$lib/Header.svelte';
-	import TitleSection from '$lib/TitleSection.svelte';
-	import TextSection1 from '$lib/TextSection1.svelte';
 	import ImageSection from '$lib/ImageSection.svelte';
 	import TextSection2 from '$lib/TextSection2.svelte';
 	import PodcastEpisodes from '$lib/PodcastEpisodes.svelte';
@@ -19,7 +17,7 @@
 
 	function updateHeaderState() {
 		const darkSections = document.querySelectorAll('.section-dark');
-		const section0 = document.getElementById('section-0');
+		const section1 = document.getElementById('section-1');
 		
 		isDarkSection = false;
 		let showTitle = false;
@@ -31,9 +29,9 @@
 			}
 		});
 
-		if (section0) {
-			const rect = section0.getBoundingClientRect();
-			if (rect.bottom <= 100) {
+		if (section1) {
+			const rect = section1.getBoundingClientRect();
+			if (rect.top <= 100) {
 				showTitle = true;
 			}
 		}
@@ -78,7 +76,7 @@
 
 <div class="page-container">
 	<div class="snap-section" id="section-0">
-		<TitleSection />
+		<ImageSection />
 		<button class="nav-arrow" on:click={() => scrollToNext(0)}>
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
 				<path d="M12 16l-6-6h12l-6 6z"/>
@@ -87,7 +85,7 @@
 	</div>
 
 	<div class="snap-section section-dark" id="section-1">
-		<TextSection1 />
+		<TextSection2 />
 		<button class="nav-arrow dark-arrow" on:click={() => scrollToNext(1)}>
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
 				<path d="M12 16l-6-6h12l-6 6z"/>
@@ -96,24 +94,6 @@
 	</div>
 
 	<div class="snap-section" id="section-2">
-		<ImageSection />
-		<button class="nav-arrow" on:click={() => scrollToNext(2)}>
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-				<path d="M12 16l-6-6h12l-6 6z"/>
-			</svg>
-		</button>
-	</div>
-
-	<div class="snap-section section-dark" id="section-3">
-		<TextSection2 />
-		<button class="nav-arrow dark-arrow" on:click={() => scrollToNext(3)}>
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-				<path d="M12 16l-6-6h12l-6 6z"/>
-			</svg>
-		</button>
-	</div>
-
-	<div class="snap-section" id="section-4">
 		<div class="final-section">
 			<section class="episodes">
 				<h2>Episodenliste</h2>
@@ -127,7 +107,9 @@
 						<p>Der Podcast. Zufällig. Relevant. Ohne Themenlimits.</p>
 					</div>
 					<div class="footer-links">
-						<a href="mailto:podcast@laberfactory.de">Kontakt</a>
+						<a href="bla">News</a>
+						<span class="divider">·</span>
+						<a href="mailto:info@laberfactory.de">Kontakt</a>
 						<span class="divider">·</span>
 						<a href="#">Privacy Policy</a>
 					</div>
