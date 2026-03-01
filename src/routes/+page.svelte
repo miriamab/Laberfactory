@@ -2,11 +2,28 @@
 	import Header from '$lib/Header.svelte';
 	import ImageSection from '$lib/ImageSection.svelte';
 	import TextSection2 from '$lib/TextSection2.svelte';
-	import PodcastEpisodes from '$lib/PodcastEpisodes.svelte';
+	import Episodes from '$lib/Episodes.svelte';
+	import News from '$lib/News.svelte';
+	import PrivacyPolicy from '$lib/PrivacyPolicy.svelte';
+	import NavigationFooter from '$lib/NavigationFooter.svelte';
 	import IntroAnimation from '$lib/IntroAnimation.svelte';
+	import { hasNavigated } from '$lib/stores.js';
 	import { onMount } from 'svelte';
 
 	let isDarkSection = false;
+	let showIntroAnimation = false;
+	let activeTab = 'episodes'; // Standard: Episodenliste
+
+	function switchTab(tab) {
+		activeTab = tab;
+		// Zur aktuellen Sektion scrollen wenn Tab gewechselt wird
+		setTimeout(() => {
+			const section2 = document.getElementById('section-2');
+			if (section2) {
+				section2.scrollIntoView({ behavior: 'smooth' });
+			}
+		}, 50);
+	}
 
 	function scrollToNext(sectionIndex) {
 		const sections = document.querySelectorAll('.snap-section');
@@ -54,11 +71,39 @@
 	}
 
 	onMount(() => {
+		// IntroAnimation nur zeigen wenn noch nicht navigiert wurde
+		showIntroAnimation = !$hasNavigated;
+
+		// Bei Hash-Navigation direkt zum entsprechenden Tab und zur Sektion scrollen
+		const hash = window.location.hash;
+		if (hash === '#episodes') {
+			activeTab = 'episodes';
+		} else if (hash === '#news') {
+			activeTab = 'news';
+		} else if (hash === '#privacy-policy') {
+			activeTab = 'privacy-policy';
+		}
+
+		if (hash) {
+			setTimeout(() => {
+				const section2 = document.getElementById('section-2');
+				if (section2) {
+					section2.scrollIntoView({ behavior: 'instant' });
+				}
+			}, 50);
+		}
+
 		const container = document.querySelector('.page-container');
 		if (container) {
 			container.addEventListener('scroll', updateHeaderState);
 		}
 		window.addEventListener('resize', updateHeaderState);
+		
+		// Event-Listener für Tab-Wechsel vom Footer
+		document.addEventListener('tabChange', (event) => {
+			activeTab = event.detail.tab;
+		});
+		
 		updateHeaderState(); // Initial check
 
 		return () => {
@@ -66,11 +111,14 @@
 				container.removeEventListener('scroll', updateHeaderState);
 			}
 			window.removeEventListener('resize', updateHeaderState);
+			document.removeEventListener('tabChange', () => {});
 		};
 	});
 </script>
 
-<IntroAnimation />
+{#if showIntroAnimation}
+	<IntroAnimation />
+{/if}
 
 <Header />
 
@@ -94,27 +142,18 @@
 	</div>
 
 	<div class="snap-section" id="section-2">
-		<div class="final-section">
-			<section class="episodes">
-				<h2>Episodenliste</h2>
-				<PodcastEpisodes />
+		<div class="final-section">			
+			<section class="tab-content">
+				{#if activeTab === 'episodes'}
+					<Episodes />
+				{:else if activeTab === 'news'}
+					<News />
+				{:else if activeTab === 'privacy-policy'}
+					<PrivacyPolicy />
+				{/if}
 			</section>
-			<footer>
-				<div class="footer-content">
-					<div class="footer-line">
-						<span class="logo">Laberfactory</span>
-						<span class="divider">·</span>
-						<p>Der Podcast. Zufällig. Relevant. Ohne Themenlimits.</p>
-					</div>
-					<div class="footer-links">
-						<a href="bla">News</a>
-						<span class="divider">·</span>
-						<a href="mailto:info@laberfactory.de">Kontakt</a>
-						<span class="divider">·</span>
-						<a href="#">Privacy Policy</a>
-					</div>
-				</div>
-			</footer>
+			
+			<NavigationFooter {activeTab} />
 		</div>
 	</div>
 </div>
@@ -174,91 +213,24 @@
 		transform: translateX(-50%) translateY(5px);
 	}
 
-	.episodes {
+	.tab-content {
 		padding: 3rem 2rem 1rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		flex: 1;
-		min-height: 0;
+		min-height: 60vh;
 	}
 
-	h2 {
-		font-size: 1.5rem;
-		font-weight: 500;
-		color: #050510;
-		margin-bottom: 2rem;
-		text-align: center;
-	}
-
-	footer {
-		padding: 2rem;
-	}
-
-	.footer-content {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-		margin-bottom: 0rem;
-	}
-
-	.footer-line {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		flex-wrap: wrap;
-	}
-
-	.logo {
-		font-size: 0.9rem;
-		font-weight: 400;
-		color: #050510;
-		opacity: 0.6;
-		margin: 0;
-	}
-
-	.footer-line p {
-		font-size: 0.9rem;
-		opacity: 0.6;
-		margin: 0;
-		color: #050510;
-	}
-
-	.footer-links {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		flex-wrap: wrap;
-	}
-
-	.footer-links a {
-		color: #050510;
-		text-decoration: none;
-		font-size: 0.9rem;
-		transition: color 0.2s;
-	}
-
-	.footer-links a:hover {
-		opacity: 0.6;
-	}
-
-	.divider {
-		opacity: 0.3;
+	@media (max-width: 768px) {
+		.tab-content {
+			padding: 2rem 1rem 1rem;
+		}
 	}
 
 	@media (min-width: 768px) {
-		.episodes {
-			padding: 6rem 4rem 3rem;
-		}
-
-		h2 {
-			font-size: 1.5rem;
-		}
-
-		.footer-content {
-			flex-direction: row;
-			justify-content: space-between;
-			align-items: center;
+		.tab-content {
+			padding: 4rem 4rem 2rem;
 		}
 	}
 </style>

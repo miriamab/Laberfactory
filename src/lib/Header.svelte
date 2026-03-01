@@ -1,6 +1,16 @@
+<script>
+	function scrollToTop() {
+		// Immer zur ersten Sektion scrollen (da alles auf einer Seite ist)
+		const section0 = document.getElementById('section-0');
+		if (section0) {
+			section0.scrollIntoView({ behavior: 'smooth' });
+		}
+	}
+</script>
+
 <header>
 	<div class="header-content">
-		<h1>Laberfactory</h1>
+		<button class="title-button" on:click={scrollToTop}>Laberfactory</button>
 		<div class="social-links">
 			<a href="https://youtube.com/playlist?list=PLWPtrHZlfcFhVg55CDHb5uQZIzCf8LHHq&si=6AQbbRoHOGpP6ZxG" target="_blank" aria-label="YouTube" title="YouTube">
 				<img src="/icons8-youtube.svg" alt="YouTube" />
@@ -42,24 +52,29 @@
 		min-height: 20px;
 	}
 
-	h1 {
+	.title-button {
 		font-size: 1.2rem;
 		font-weight: 400;
 		color: #050510;
 		margin: 0;
+		padding: 0;
+		border: none;
+		background: none;
 		position: fixed;
 		left: 2rem;
 		top: 1.25rem;
 		z-index: 1001;
 		opacity: 0;
+		cursor: pointer;
+		font-family: inherit;
 		transition: opacity 0.3s ease, color 0.3s ease;
 	}
 
-	:global(header.show-title) h1 {
+	:global(header.show-title) .title-button {
 		opacity: 1;
 	}
 
-	:global(header.dark-header) h1 {
+	:global(header.dark-header) .title-button {
 		color: #f0ecec;
 	}
 
@@ -104,7 +119,7 @@
 			gap: 1rem;
 		}
 
-		h1 {
+		.title-button {
 			font-size: 1.25rem;
 		}
 
@@ -119,7 +134,7 @@
 	}
 
 	@media (max-width: 640px) {
-		h1 {
+		.title-button {
 			font-size: 1.1rem;
 		}
 	}
