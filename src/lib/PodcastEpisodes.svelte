@@ -95,26 +95,28 @@
 	{:else if episodes.length === 0}
 		<div class="empty">Keine Episoden verfügbar.</div>
 	{:else}
-		<div class="episodes-grid">
-			{#each currentEpisodes as episode, i}
-				<article 
-					class="episode-card" 
-					on:click={() => openModal(episode)}
-					style="animation-delay: {i * 0.1}s;"
-				>
-					<div class="episode-number">
-						<span>#{episode.id}</span>
-					</div>
-					<div class="episode-content">
-						<h3>{episode.title}</h3>
-						<div class="episode-meta">
-							<span>{formatDate(episode.releaseDate)}</span>
-							<span class="dot">·</span>
-							<span>{episode.duration}</span>
+		<div class="grid-wrapper">
+			<div class="episodes-grid">
+				{#each currentEpisodes as episode, i}
+					<article 
+						class="episode-card" 
+						on:click={() => openModal(episode)}
+						style="animation-delay: {i * 0.1}s;"
+					>
+						<div class="episode-number">
+							<span>#{episode.id}</span>
 						</div>
-					</div>
-				</article>
-			{/each}
+						<div class="episode-content">
+							<h3>{episode.title}</h3>
+							<div class="episode-meta">
+								<span>{formatDate(episode.releaseDate)}</span>
+								<span class="dot">·</span>
+								<span>{episode.duration}</span>
+							</div>
+						</div>
+					</article>
+				{/each}
+			</div>
 		</div>
 		
 		{#if totalPages > 1}
@@ -201,6 +203,17 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		align-items: center;
+		min-height: 0; /* Erlaubt Flexbox-Shrinking */
+	}
+
+	.grid-wrapper {
+		width: 100%;
+		max-width: 1200px;
+		flex: 1;
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.episodes-grid {
@@ -208,11 +221,21 @@
 		grid-template-columns: repeat(3, 1fr);
 		grid-template-rows: repeat(2, 1fr);
 		gap: 1.5rem;
-		max-width: 1200px;
 		width: 100%;
 		margin: 0 auto;
+		align-content: start;
 		flex: 1;
-		min-height: 0;
+		min-height: 0; /* Erlaubt Flexbox-Shrinking */
+	}
+
+	.navigation {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		padding: 0.5rem 2rem;
+		flex-shrink: 0; /* Navigation schrumpft nie weg */
+		width: 100%;
 	}
 
 	.episode-card {
@@ -538,15 +561,6 @@
 		to { opacity: 1; transform: translateY(0); }
 	}
 
-	.navigation {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-		margin-top: 2rem;
-		padding: 0 2rem;
-	}
-
 	.nav-btn {
 		background: none;
 		border: none;
@@ -582,11 +596,20 @@
 	}
 
 	@media (max-width: 768px) {
+		.episodes-container {
+			padding-bottom: 100px;
+		}
+
 		.episodes-grid {
 			grid-template-columns: repeat(2, 1fr);
 			grid-template-rows: repeat(3, 1fr);
 			gap: 1rem;
 			max-width: 600px;
+			min-height: 700px; /* Feste Mindesthöhe Tablet */
+		}
+		
+		.navigation {
+			bottom: 15px;
 		}
 
 		.episode-card {
@@ -630,6 +653,12 @@
 			grid-template-columns: repeat(2, 1fr);
 			grid-template-rows: repeat(3, 1fr);
 			max-width: 500px;
+			min-height: 550px; /* Feste Mindesthöhe Mobile */
+		}
+		
+		.episode-card {
+			padding: 1rem;
+			min-height: 160px;
 		}
 
 		.episode-card {

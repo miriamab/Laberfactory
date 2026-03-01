@@ -71,26 +71,29 @@
 	}
 
 	onMount(() => {
-		// IntroAnimation nur zeigen wenn noch nicht navigiert wurde
-		showIntroAnimation = !$hasNavigated;
+		// Bei jedem Reload/Laden der Seite: 
+		// 1. hasNavigated zurücksetzen
+		// 2. IntroAnimation immer zeigen 
+		// 3. Zur Hero-Sektion scrollen
+		// 4. Episodenliste als Standard setzen
+		
+		hasNavigated.set(false);
+		showIntroAnimation = true;
+		activeTab = 'episodes'; // Episodenliste als Standard
+		
+		// Zur Hero-Sektion (Section 0) scrollen
+		setTimeout(() => {
+			// Sicherstellen, dass die Seite ganz nach oben scrollt
+			window.scrollTo(0, 0);
+			const heroSection = document.getElementById('section-0');
+			if (heroSection) {
+				heroSection.scrollIntoView({ behavior: 'instant' });
+			}
+		}, 50);
 
-		// Bei Hash-Navigation direkt zum entsprechenden Tab und zur Sektion scrollen
-		const hash = window.location.hash;
-		if (hash === '#episodes') {
-			activeTab = 'episodes';
-		} else if (hash === '#news') {
-			activeTab = 'news';
-		} else if (hash === '#privacy-policy') {
-			activeTab = 'privacy-policy';
-		}
-
-		if (hash) {
-			setTimeout(() => {
-				const section2 = document.getElementById('section-2');
-				if (section2) {
-					section2.scrollIntoView({ behavior: 'instant' });
-				}
-			}, 50);
+		// Hash aus URL entfernen, damit bei Reload immer die Hero-Sektion gezeigt wird
+		if (window.location.hash) {
+			window.history.replaceState(null, '', window.location.pathname);
 		}
 
 		const container = document.querySelector('.page-container');
@@ -214,23 +217,23 @@
 	}
 
 	.tab-content {
-		padding: 3rem 2rem 1rem;
+		padding: 3rem 2rem 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		flex: 1;
-		min-height: 60vh;
+		min-height: 0;
 	}
 
 	@media (max-width: 768px) {
 		.tab-content {
-			padding: 2rem 1rem 1rem;
+			padding: 1.5rem 1rem 0;
 		}
 	}
 
 	@media (min-width: 768px) {
 		.tab-content {
-			padding: 4rem 4rem 2rem;
+			padding: 3rem 4rem 0;
 		}
 	}
 </style>

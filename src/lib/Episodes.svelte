@@ -10,6 +10,10 @@
 <style>
 	.episodes-section {
 		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		min-height: 0; /* Erlaubt Flexbox-Shrinking */
 	}
 
 	h2 {
