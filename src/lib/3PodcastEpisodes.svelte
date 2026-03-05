@@ -6,10 +6,17 @@
 	let error = null;
 	let expandedEpisode = null;
 	let currentPage = 0;
-	const episodesPerPage = 6;
+	let innerWidth = 1024;
 	let selectedEpisode = null;
 
+	$: episodesPerPage = innerWidth <= 640 ? 3 : 6;
 	$: totalPages = Math.ceil(episodes.length / episodesPerPage);
+	$: {
+		// Verhindert, dass man bei Fenstergrößenänderung auf einer leeren Seite landet
+		if (totalPages > 0 && currentPage >= totalPages) {
+			currentPage = Math.max(0, totalPages - 1);
+		}
+	}
 	$: currentEpisodes = episodes.slice(currentPage * episodesPerPage, (currentPage + 1) * episodesPerPage);
 
 	onMount(async () => {
@@ -87,6 +94,8 @@
 	}
 </script>
 
+<svelte:window bind:innerWidth />
+
 <div class="episodes-container">
 	{#if loading}
 		<div class="loading">Lade Episoden...</div>
@@ -103,12 +112,19 @@
 						on:click={() => openModal(episode)}
 						style="animation-delay: {i * 0.1}s;"
 					>
-						<div class="episode-number">
-							<span>#{episode.id}</span>
+						<div class="episode-header-wrapper">
+							<div class="episode-number">
+								<span>#{episode.id}</span>
+							</div>
+							<div class="episode-meta mobile-meta">
+								<span>{formatDate(episode.releaseDate)}</span>
+								<span class="dot">·</span>
+								<span>{episode.duration}</span>
+							</div>
 						</div>
 						<div class="episode-content">
 							<h3>{episode.title}</h3>
-							<div class="episode-meta">
+							<div class="episode-meta desktop-meta">
 								<span>{formatDate(episode.releaseDate)}</span>
 								<span class="dot">·</span>
 								<span>{episode.duration}</span>
@@ -506,8 +522,15 @@
 		font-size: 0.75rem;
 		color: #050510;
 		opacity: 0.6;
-		margin-top: auto;
 		flex-shrink: 0;
+	}
+
+	.desktop-meta {
+		margin-top: auto;
+	}
+
+	.mobile-meta {
+		display: none;
 	}
 
 	.dot {
@@ -655,26 +678,58 @@
 
 	@media (max-width: 640px) {
 		.episodes-grid {
-			grid-template-columns: repeat(2, 1fr);
-			grid-template-rows: repeat(3, 1fr);
-			max-width: 500px;
-			min-height: 0; /* Flexibel anstatt Feste Mindesthöhe Mobile */
-			gap: 0.5rem; /* Noch enger zusammen für sehr kleine Handys */
+			grid-template-columns: 1fr; /* Nur eine Spalte für Mobile */
+			grid-template-rows: auto; /* Keine feste Grid-Zeilenhöhe vergeben */
+			max-width: 320px; /* Wieder die Originalbreite */
+			margin: 0 auto; 
+			min-height: 0; 
+			gap: 1.25rem; /* Etwas Abstand zwischen den Karten fallback */
+			padding: 0 0.5rem;
+			display: flex; /* Wechseln von Grid zu Flex für bessere vertikale Verteilung */
+			flex-direction: column;
+			justify-content: space-evenly; /* Verteilt den verfügbaren Platz gleichmäßig Dazwischen */
 		}
 		
 		.episode-card {
-			padding: 0.75rem; /* Noch kompakter */
-			min-height: 0;
+			padding: 1.85rem 1rem; /* Ein kleines bisschen mehr inneren Raum zurückgeben für die Höhe (und horizontal etwas atmen) */
+			min-height: 80px; /* Eine winzige garantierte Grundhöhe, dass sie nicht zu mickrig aussehen */
+			justify-content: flex-start; /* Keine künstliche Streckung im Inneren */
+			height: auto; /* Die Karte nimmt nur den Platz ein, den sie wirklich braucht */
+		}
+
+		.episode-content {
+			justify-content: flex-start; /* Auch hier nicht mehr auf die ganze Höhe zwingen */
+			flex: 0 0 auto; 
+			margin-top: 0.25rem; /* Ein minimaler Puffer über dem Titel in der Karte */
+		}
+
+		.episode-header-wrapper {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			margin-bottom: 0.5rem;
 		}
 
 		.episode-number {
-			width: 35px;
-			height: 35px;
+			margin-bottom: 0; 
+			width: 38px;
+			height: 38px;
+			font-size: 0.8rem;
+		}
+
+		.desktop-meta {
+			display: none;
+		}
+
+		.mobile-meta {
+			display: flex;
+			font-size: 0.7rem; 
+			margin-top: 0;
 		}
 
 		.episode-card h3 {
-			font-size: 0.85rem;
-			margin-bottom: 0.3rem;
+			font-size: 0.9rem;
+			margin-bottom: 0;
 			display: -webkit-box;
 			-webkit-line-clamp: 2; /* Maximal 2 Zeilen für Titel */
 			-webkit-box-orient: vertical;
@@ -700,11 +755,27 @@
 		}
 
 		.modal-body {
-			padding: 2rem 1.5rem;
+			padding: 1.5rem 1rem;
 		}
 
 		.modal-body h3 {
-			font-size: 1.1rem;
+			font-size: 1rem;
+			margin-bottom: 1rem;
+		}
+
+		.modal-description {
+			font-size: 0.85rem;
+			line-height: 1.5;
+		}
+
+		.modal-meta {
+			font-size: 0.8rem;
+			margin-bottom: 1rem;
+		}
+
+		.modal-close {
+			right: 1rem;
+			top: 0.5rem;
 		}
 
 		.modal-nav {

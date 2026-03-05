@@ -149,7 +149,7 @@
 	{/key}
 {/if}
 
-<Header />
+<Header {activeTab} />
 
 <div class="page-container" class:privacy-mode={activeTab === 'privacy-policy'}>
 	<div class="snap-section" id="section-0">

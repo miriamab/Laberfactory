@@ -1,4 +1,6 @@
 <script>
+	export let activeTab = '';
+	
 	function scrollToTop() {
 		// Sofort Overlay einblenden (kein Glitch)
 		const overlay = document.createElement('div');
@@ -11,7 +13,7 @@
 	}
 </script>
 
-<header>
+<header class:privacy-mode={activeTab === 'privacy-policy'}>
 	<div class="header-content">
 		<button class="title-button" on:click={scrollToTop}>Laberfactory</button>
 		<div class="social-links">
@@ -141,6 +143,17 @@
 	}
 
 	@media (max-width: 640px) {
+		header.privacy-mode {
+			background: rgba(240, 236, 236, 0.85); /* var(--bg) mit Transparenz */
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			padding-bottom: 0.85rem; /* Der Milchglas-Effekt geht etwas weiter nach unten */
+		}
+
+		:global(header.dark-header.privacy-mode) {
+			background: rgba(17, 16, 17, 0.85);
+		}
+
 		.header-content {
 			padding: 0.75rem 1rem;
 		}

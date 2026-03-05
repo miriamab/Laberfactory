@@ -90,4 +90,23 @@
 		line-height: 1.8;
 		margin: 0;
 	}
+
+	@media (max-width: 768px) {
+		h2 {
+			font-size: 1.25rem;
+			margin-bottom: 1rem;
+		}
+
+		p {
+			font-size: 0.9rem;
+			line-height: 1.6;
+		}
+	}
+
+	@media (max-width: 640px) {
+		p {
+			font-size: 0.8rem;
+			line-height: 1.5;
+		}
+	}
 </style>

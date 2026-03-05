@@ -36,8 +36,13 @@
 	}
 
 	@media (max-width: 640px) {
+		.image-section {
+			padding: 1rem; /* Geringeres Basis-Padding auf Mobile für mehr Platz */
+		}
+
 		.hero-image {
-			width: 150px;
+			width: 100%; /* Fast die gesamte Breite einnehmen statt festen winzigen 150px */
+			max-width: 380px; /* Begrenzung nach oben, damit es auf extrem breiten Handys nicht riesig wird */
 		}
 	}
 </style>
