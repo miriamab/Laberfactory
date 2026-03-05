@@ -152,11 +152,13 @@
 		</button>
 		
 		<div class="modal-content" on:click|stopPropagation>
-			<button class="modal-close" on:click={closeModal}>
-				<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-					<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-				</svg>
-			</button>
+			<div class="modal-close-container">
+				<button class="modal-close" on:click={closeModal}>
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+					</svg>
+				</button>
+			</div>
 			
 			<div class="modal-body">
 				<div class="modal-episode-number">
@@ -289,10 +291,17 @@
 		box-shadow: 0 20px 60px rgba(5, 5, 16, 0.3);
 	}
 
+	.modal-close-container {
+		position: sticky;
+		top: 1.5rem;
+		height: 0;
+		width: 100%;
+		z-index: 2001;
+	}
+
 	.modal-close {
-		position: fixed;
-		top: calc(5vh + 1.5rem);
-		right: calc(50% - 450px + 1.5rem);
+		position: absolute;
+		right: 1.5rem;
 		background: none;
 		border: none;
 		cursor: pointer;
@@ -302,7 +311,6 @@
 		align-items: center;
 		justify-content: center;
 		transition: opacity 0.3s ease;
-		z-index: 2001;
 	}
 
 	.modal-close:hover {
@@ -631,10 +639,6 @@
 			font-size: 0.8rem;
 		}
 
-		.modal-close {
-			right: calc(50% - 300px + 1.5rem);
-		}
-
 		.modal-body {
 			padding: 2rem 2.5rem;
 		}
@@ -673,10 +677,6 @@
 
 		.modal-overlay {
 			padding: 1rem;
-		}
-
-		.modal-close {
-			right: calc(1rem + 1.5rem);
 		}
 
 		.modal-body {
