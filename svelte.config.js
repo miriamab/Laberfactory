@@ -3,6 +3,7 @@ import adapter from '@sveltejs/adapter-static';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
+		appDir: 'app',
 		// adapter-static configuration
 		adapter: adapter({
 			pages: 'build',
