@@ -23,4 +23,11 @@
 		margin-bottom: 2rem;
 		text-align: center;
 	}
+
+	@media (max-width: 768px) {
+		h2 {
+			font-size: 1.25rem;
+			margin-bottom: 1rem; /* Nimmt weniger Platz in der Höhe weg */
+		}
+	}
 </style>

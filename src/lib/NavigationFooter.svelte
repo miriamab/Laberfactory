@@ -35,70 +35,78 @@
 <style>
 	footer {
 		background: #f0ecec;
-		padding: 2rem;
+		padding: 1.5rem 0.5rem; /* Weniger Padding seitlich für mehr Platz auf Mobile */
 	}
 
 	.footer-content {
 		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
+		flex-direction: column-reverse; /* Links oben, Text unten auf Mobile */
+		gap: 1rem; /* Etwas kompakter */
 		margin-bottom: 0rem;
 	}
 
 	.footer-line {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
-		flex-wrap: wrap;
+		justify-content: center; /* Zentriert auf Mobile */
+		gap: 0.3rem; /* Tighter für sehr kleine Handys */
+		flex-wrap: wrap; /* Notfalls umbrechen, sollte aber passen */
 	}
 
 	.logo {
-		font-size: 0.9rem;
+		font-size: clamp(0.6rem, 2.5vw, 0.7rem); /* Kleiner und dynamisch auf Mobile */
 		font-weight: 400;
 		color: #050510;
 		opacity: 0.6;
 		margin: 0;
+		white-space: nowrap;
 	}
 
 	.divider {
 		opacity: 0.3;
 		color: #050510;
+		font-size: clamp(0.6rem, 2.5vw, 0.7rem);
 	}
 
 	.footer-line p {
-		font-size: 0.9rem;
+		font-size: clamp(0.55rem, 2vw, 0.7rem); /* Text noch etwas kleiner */
 		opacity: 0.6;
 		margin: 0;
 		color: #050510;
+		text-align: center;
 	}
 
 	.footer-links {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
-		flex-wrap: wrap;
+		justify-content: center; /* Zentriert auf Mobile */
+		gap: 0.2rem; /* Enger zusammen für sehr kleine Handys */
+		flex-wrap: wrap; 
 	}
 
 	.footer-link {
 		color: #050510;
 		text-decoration: none;
-		font-size: 0.9rem;
+		font-size: clamp(0.65rem, 2.8vw, 0.8rem); /* Passt sich an kleine Bildschirme an */
 		transition: all 0.2s ease;
 		background: none;
 		border: none;
 		font-family: inherit;
 		cursor: pointer;
-		padding: 0.25rem 0.5rem;
+		padding: 0.2rem;
 		border-radius: 4px;
 		opacity: 0.6;
+		white-space: nowrap; /* Button-Text bleibt auf einer Zeile */
 	}
 
 	.footer-links a:not(.footer-link) {
 		color: #050510;
 		text-decoration: none;
-		font-size: 0.9rem;
+		font-size: clamp(0.65rem, 2.8vw, 0.8rem);
 		transition: opacity 0.2s ease;
 		opacity: 0.6;
+		padding: 0.2rem;
+		white-space: nowrap;
 	}
 
 	.footer-link:hover {
@@ -116,10 +124,46 @@
 	}
 
 	@media (min-width: 768px) {
+		footer {
+			padding: 2rem;
+		}
+
 		.footer-content {
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
+			gap: 1rem;
+		}
+
+		.footer-line {
+			justify-content: flex-start;
+			gap: 1rem;
+		}
+
+		.logo {
+			font-size: 0.9rem;
+		}
+
+		.divider {
+			font-size: 0.9rem;
+		}
+
+		.footer-line p {
+			font-size: 0.9rem;
+			text-align: left;
+		}
+
+		.footer-links {
+			justify-content: flex-end;
+			gap: 1rem;
+		}
+
+		.footer-link {
+			font-size: 0.9rem;
+		}
+
+		.footer-links a:not(.footer-link) {
+			font-size: 0.9rem;
 		}
 	}
 </style>

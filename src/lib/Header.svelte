@@ -123,22 +123,43 @@
 		}
 
 		.title-button {
-			font-size: 1.25rem;
+			font-size: 1.1rem;
+			left: 1.5rem;
+			top: 1rem;
 		}
 
 		.social-links {
 			gap: 1rem;
+			right: 1.5rem;
+			top: 1rem;
 		}
 
-		.social-links svg {
+		.social-links img {
 			width: 20px;
 			height: 20px;
 		}
 	}
 
 	@media (max-width: 640px) {
+		.header-content {
+			padding: 0.75rem 1rem;
+		}
+
 		.title-button {
-			font-size: 1.1rem;
+			font-size: 0.9rem;
+			left: 1rem;
+			top: 0.75rem;
+		}
+
+		.social-links {
+			gap: 0.75rem;
+			right: 1rem;
+			top: 0.75rem;
+		}
+
+		.social-links img {
+			width: 18px;
+			height: 18px;
 		}
 	}
 </style>

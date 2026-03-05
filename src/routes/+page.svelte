@@ -107,15 +107,13 @@
 		document.addEventListener('tabChange', (event) => {
 			activeTab = event.detail.tab;
 			
-			// Wenn Privacy Policy, nach oben zur Section-2 scrollen
-			if (event.detail.tab === 'privacy-policy') {
-				setTimeout(() => {
-					const section2 = document.getElementById('section-2');
-					if (section2) {
-						section2.scrollIntoView({ behavior: 'smooth' });
-					}
-				}, 0);
-			}
+			// Bei Navigation im Footer immer zur Section-2 scrollen
+			setTimeout(() => {
+				const section2 = document.getElementById('section-2');
+				if (section2) {
+					section2.scrollIntoView({ behavior: 'smooth' });
+				}
+			}, 0);
 		});
 
 		// Header Logo Klick: Intro-Animation neu starten
@@ -172,8 +170,8 @@
 		</button>
 	</div>
 
-	<div class="snap-section" id="section-2" class:privacy-active={activeTab === 'privacy-policy'}>
-		<div class="final-section" class:privacy-final={activeTab === 'privacy-policy'}>			
+	<div class="snap-section" id="section-2" class:content-auto-height={activeTab === 'privacy-policy' || activeTab === 'news'}>
+		<div class="final-section" class:content-flex-start={activeTab === 'privacy-policy' || activeTab === 'news'}>			
 			<section class="tab-content">
 				{#if activeTab === 'episodes'}
 					<Episodes />
@@ -194,6 +192,7 @@
 		scroll-snap-type: y mandatory;
 		overflow-y: scroll;
 		height: 100vh;
+		height: 100dvh;
 	}
 
 	/* Privacy Policy Modus: kein Snap, sections 0+1 ausgeblendet */
@@ -210,6 +209,7 @@
 	.snap-section {
 		scroll-snap-align: start;
 		height: 100vh;
+		height: 100dvh;
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -217,22 +217,25 @@
 
 	.final-section {
 		height: 100vh;
+		height: 100dvh;
 		scroll-snap-type: none;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
 	}
 
-	/* Privacy Policy: kein height limit, Footer am Ende */
-	.privacy-active {
+	/* Scrolling Content: kein height limit, Footer am Ende */
+	.content-auto-height {
 		height: auto;
 		min-height: 100vh;
+		min-height: 100dvh;
 	}
 
-	.privacy-final {
+	.content-flex-start {
 		height: auto;
 		min-height: 100vh;
-		justify-content: flex-start;
+		min-height: 100dvh;
+		justify-content: space-between;
 	}
 
 	.nav-arrow {
@@ -268,30 +271,33 @@
 	}
 
 	.tab-content {
-		padding: 3rem 2rem 0;
+		padding: 5rem 2rem 0; /* Mehr Abstand oben für festen Header */
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		flex: 1;
 		min-height: 0;
+		width: 100%;
+		overflow-y: auto; /* Erlaubt scrollen innerhalb des Contents bei zu kleinem Display */
 	}
 
-	/* Privacy Policy tab-content: kein flex:1 Stretch */
-	.privacy-final .tab-content {
-		flex: none;
+	/* Privacy Policy & News tab-content: füllt mindestens den Restbildschirm, erlaubt aber weiteres Wachsen */
+	.content-flex-start .tab-content {
+		flex: 1 0 auto;
 		min-height: unset;
 		padding-bottom: 2rem;
+		overflow-y: visible;
 	}
 
 	@media (max-width: 768px) {
 		.tab-content {
-			padding: 1.5rem 1rem 0;
+			padding: 4.5rem 0.5rem 0; /* Ausreichend Platz für Header, weniger Rand seitlich */
 		}
 	}
 
 	@media (min-width: 768px) {
 		.tab-content {
-			padding: 3rem 4rem 0;
+			padding: 6rem 4rem 0;
 		}
 	}
 </style>

@@ -605,24 +605,25 @@
 
 	@media (max-width: 768px) {
 		.episodes-container {
-			padding-bottom: 100px;
+			padding-bottom: 15px; /* Weniger Abstand unten */
 		}
 
 		.episodes-grid {
 			grid-template-columns: repeat(2, 1fr);
 			grid-template-rows: repeat(3, 1fr);
-			gap: 1rem;
+			gap: 0.75rem; /* Etwas kleinerer Gap für mehr Platz */
 			max-width: 600px;
-			min-height: 700px; /* Feste Mindesthöhe Tablet */
+			min-height: 0; /* Flexibel statt fest, vorher 700px */
 		}
 		
 		.navigation {
-			bottom: 15px;
+			bottom: 0;
+			padding: 0.25rem; /* Platz sparend */
 		}
 
 		.episode-card {
-			padding: 1.25rem;
-			min-height: 180px;
+			padding: 1rem; /* Kompakter */
+			min-height: 0; /* Erlaubt dynamische Anpassung, vorher 180px */
 		}
 
 		.episode-number {
@@ -657,22 +658,41 @@
 			grid-template-columns: repeat(2, 1fr);
 			grid-template-rows: repeat(3, 1fr);
 			max-width: 500px;
-			min-height: 550px; /* Feste Mindesthöhe Mobile */
+			min-height: 0; /* Flexibel anstatt Feste Mindesthöhe Mobile */
+			gap: 0.5rem; /* Noch enger zusammen für sehr kleine Handys */
 		}
 		
 		.episode-card {
-			padding: 1rem;
-			min-height: 160px;
+			padding: 0.75rem; /* Noch kompakter */
+			min-height: 0;
 		}
 
-		.episode-card {
-			padding: 1rem;
-			min-height: 160px;
+		.episode-number {
+			width: 35px;
+			height: 35px;
+		}
+
+		.episode-card h3 {
+			font-size: 0.85rem;
+			margin-bottom: 0.3rem;
+			display: -webkit-box;
+			-webkit-line-clamp: 2; /* Maximal 2 Zeilen für Titel */
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.episode-description {
+			font-size: 0.75rem;
+			display: -webkit-box;
+			-webkit-line-clamp: 3; /* Maximal 3 Zeilen für Beschreibung */
+			-webkit-box-orient: vertical;
+			overflow: hidden;
 		}
 
 		.nav-btn {
 			width: 44px;
 			height: 44px;
+			padding: 0.5rem;
 		}
 
 		.modal-overlay {
