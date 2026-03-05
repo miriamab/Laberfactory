@@ -17,15 +17,41 @@
 			currentPage = Math.max(0, totalPages - 1);
 		}
 	}
-	$: currentEpisodes = episodes.slice(currentPage * episodesPerPage, (currentPage + 1) * episodesPerPage);
+	$: currentEpisodes = (episodes || []).slice(currentPage * episodesPerPage, (currentPage + 1) * episodesPerPage);
 
 	onMount(async () => {
 		try {
-			const response = await fetch('/api/episodes');
+			// Versuche zuerst die lokale API, dann fallback auf PHP-Lösung
+			const fetchUrl = import.meta.env.DEV ? '/api/episodes' : '/episodes.php';
+			let response = await fetch(fetchUrl);
+			
+			if (!response.ok && import.meta.env.DEV) {
+				// Im Entwicklungsmodus könnte die normale API fehlen, versuche PHP (falls lokal PHP läuft)
+				response = await fetch('/episodes.php');
+			}
+			
 			if (!response.ok) {
 				throw new Error('Failed to fetch episodes');
 			}
-			episodes = await response.json();
+			
+			const contentType = response.headers.get("content-type");
+			if (contentType && contentType.indexOf("application/json") !== -1) {
+				const data = await response.json();
+				
+				// Handle both formats (arrays from old API or objects from PHP)
+				if (Array.isArray(data)) {
+					episodes = data;
+				} else if (data && data.rssText) {
+					episodes = parseRSSFeed(data.rssText);
+				} else if (data && data.error) {
+					throw new Error(data.error);
+				} else {
+					throw new Error("Invalid format received");
+				}
+			} else {
+				throw new Error("Invalid content type");
+			}
+			
 			loading = false;
 		} catch (err) {
 			console.error('Error loading episodes:', err);
@@ -33,6 +59,93 @@
 			loading = false;
 		}
 	});
+
+	function parseRSSFeed(rssText) {
+		const parsedEpisodes = [];
+
+		const itemRegex = /<item>(.*?)<\/item>/gs;
+		const items = rssText.match(itemRegex) || [];
+
+		function decodeHTMLEntities(text) {
+			return text
+				.replace(/&lt;/g, '<')
+				.replace(/&gt;/g, '>')
+				.replace(/&amp;/g, '&')
+				.replace(/&quot;/g, '"')
+				.replace(/&#039;/g, "'")
+				.replace(/&apos;/g, "'")
+				.replace(/&nbsp;/g, ' ')
+				.replace(/<\/p>\s*<p>/gi, '\n\n')
+				.replace(/<p>/gi, '')
+				.replace(/<\/p>/gi, '\n\n')
+				.replace(/<br\s*\/?>\s*<br\s*\/?>/gi, '\n\n')
+				.replace(/<br\s*\/?>/gi, '\n')
+				.replace(/<[^>]*>/g, '')
+				.replace(/ +/g, ' ')
+				.replace(/\n /g, '\n')
+				.replace(/ \n/g, '\n')
+				.replace(/\n{3,}/g, '\n\n')
+				.trim();
+		}
+
+		items.forEach((item, index) => {
+			const titleMatch = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/) || item.match(/<title>(.*?)<\/title>/);
+			const title = titleMatch ? titleMatch[1].trim() : '';
+
+			const descMatch = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/) || item.match(/<description>(.*?)<\/description>/);
+			let description = descMatch ? descMatch[1].trim() : '';
+			description = decodeHTMLEntities(description).substring(0, 200);
+
+			const summaryMatch = item.match(/<itunes:summary><!\[CDATA\[(.*?)\]\]><\/itunes:summary>/s) ||
+				item.match(/<itunes:summary>(.*?)<\/itunes:summary>/s);
+			const contentMatch = item.match(/<content:encoded><!\[CDATA\[(.*?)\]\]><\/content:encoded>/s) ||
+				item.match(/<content:encoded>(.*?)<\/content:encoded>/s);
+			const descFullMatch = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/s) ||
+				item.match(/<description>(.*?)<\/description>/s);
+
+			const possibleDescriptions = [
+				summaryMatch ? summaryMatch[1].trim() : '',
+				contentMatch ? contentMatch[1].trim() : '',
+				descFullMatch ? descFullMatch[1].trim() : ''
+			].filter(d => d.length > 0);
+
+			let fullDescription = possibleDescriptions.length > 0
+				? possibleDescriptions.reduce((a, b) => a.length > b.length ? a : b)
+				: description;
+
+			fullDescription = decodeHTMLEntities(fullDescription);
+
+			const pubDateMatch = item.match(/<pubDate>(.*?)<\/pubDate>/);
+			const releaseDate = pubDateMatch ? new Date(pubDateMatch[1]).toISOString().split('T')[0] : '';
+
+			const durationMatch = item.match(/<itunes:duration>(.*?)<\/itunes:duration>/);
+			let duration = durationMatch ? durationMatch[1].trim() : '00:00';
+
+			if (duration && !duration.includes(':')) {
+				const totalSeconds = parseInt(duration);
+				const hours = Math.floor(totalSeconds / 3600);
+				const minutes = Math.floor((totalSeconds % 3600) / 60);
+				const seconds = totalSeconds % 60;
+
+				if (hours > 0) {
+					duration = `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+				} else {
+					duration = `${minutes}:${String(seconds).padStart(2, '0')}`;
+				}
+			}
+
+			parsedEpisodes.push({
+				id: items.length - index,
+				title: title || `Episode ${index + 1}`,
+				description: description || 'Keine Beschreibung verfügbar.',
+				fullDescription: fullDescription || description || 'Keine Beschreibung verfügbar.',
+				duration: duration,
+				releaseDate: releaseDate
+			});
+		});
+
+		return parsedEpisodes;
+	}
 
 	function nextPage() {
 		if (currentPage < totalPages - 1) {
