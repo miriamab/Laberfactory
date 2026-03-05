@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # WICHTIG: Erlaube den direkten Zugriff auf echte Dateien und Ordner
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Leite alle anderen Anfragen an die index.html weiter (für SvelteKit Routing)
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+# Optional: Setze den korrekten MIME-Typ für JavaScript-Module, falls Netcup hier Probleme macht
+<IfModule mod_mime.c>
+    AddType text/javascript .js
+    AddType text/css .css
+</IfModule>

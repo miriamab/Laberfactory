@@ -120,25 +120,25 @@
 
 	@media (max-width: 768px) {
 		.header-content {
-			padding: 1rem 1.5rem;
-			gap: 1rem;
+			padding: 1.25rem 1.75rem;
+			gap: 1.25rem;
 		}
 
 		.title-button {
-			font-size: 1.1rem;
-			left: 1.5rem;
-			top: 1rem;
+			font-size: 1.3rem;
+			left: 1.75rem;
+			top: 1.25rem;
 		}
 
 		.social-links {
-			gap: 1rem;
-			right: 1.5rem;
-			top: 1rem;
+			gap: 1.25rem;
+			right: 1.75rem;
+			top: 1.25rem;
 		}
 
 		.social-links img {
-			width: 20px;
-			height: 20px;
+			width: 24px;
+			height: 24px;
 		}
 	}
 
@@ -155,24 +155,24 @@
 		}
 
 		.header-content {
-			padding: 0.75rem 1rem;
+			padding: 1rem 1.25rem;
 		}
 
 		.title-button {
-			font-size: 0.9rem;
-			left: 1rem;
-			top: 0.75rem;
+			font-size: 1.2rem;
+			left: 1.25rem;
+			top: 1rem;
 		}
 
 		.social-links {
-			gap: 0.75rem;
-			right: 1rem;
-			top: 0.75rem;
+			gap: 1.1rem;
+			right: 1.25rem;
+			top: 1rem;
 		}
 
 		.social-links img {
-			width: 18px;
-			height: 18px;
+			width: 22px;
+			height: 22px;
 		}
 	}
 </style>

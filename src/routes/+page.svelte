@@ -42,23 +42,15 @@
 		
 		darkSections.forEach((section) => {
 			const rect = section.getBoundingClientRect();
-			if (rect.top <= 100 && rect.bottom >= 100) {
+			// Mobile friendly header update: check if section is mostly taking up screen
+			if (rect.top <= window.innerHeight * 0.2 && rect.bottom >= window.innerHeight * 0.2) {
 				isDarkSection = true;
 			}
 		});
 
 		if (section1) {
 			const rect = section1.getBoundingClientRect();
-			if (rect.top <= 100) {
-				showTitle = true;
-			}
-		}
-
-		// Update header class
-		const header = document.querySelector('header');
-		if (header) {
-			if (isDarkSection) {
-				header.classList.add('dark-header');
+			if (rect.top <= window.innerHeight * 0.1) {
 			} else {
 				header.classList.remove('dark-header');
 			}

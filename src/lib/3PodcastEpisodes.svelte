@@ -19,6 +19,49 @@
 	}
 	$: currentEpisodes = (episodes || []).slice(currentPage * episodesPerPage, (currentPage + 1) * episodesPerPage);
 
+	let touchStartX = 0;
+	let touchStartY = 0;
+	let touchEndX = 0;
+	let touchEndY = 0;
+
+	function handleTouchStart(e) {
+		touchStartX = e.changedTouches[0].screenX;
+		touchStartY = e.changedTouches[0].screenY;
+	}
+
+	function handleTouchEndGrid(e) {
+		touchEndX = e.changedTouches[0].screenX;
+		touchEndY = e.changedTouches[0].screenY;
+		
+		const diffX = touchEndX - touchStartX;
+		const diffY = touchEndY - touchStartY;
+		
+		// If swiped horizontally more than vertically and more than 50px
+		if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+			if (diffX < 0) {
+				nextPage(); // Swiped left -> Next page
+			} else {
+				prevPage(); // Swiped right -> Previous page
+			}
+		}
+	}
+
+	function handleTouchEndModal(e) {
+		touchEndX = e.changedTouches[0].screenX;
+		touchEndY = e.changedTouches[0].screenY;
+		
+		const diffX = touchEndX - touchStartX;
+		const diffY = touchEndY - touchStartY;
+		
+		if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+			if (diffX < 0) {
+				nextEpisode(); // Swiped left -> Next episode
+			} else {
+				prevEpisode(); // Swiped right -> Previous episode
+			}
+		}
+	}
+
 	onMount(async () => {
 		try {
 			// Versuche zuerst die lokale API, dann fallback auf PHP-Lösung
@@ -218,7 +261,11 @@
 		<div class="empty">Keine Episoden verfügbar.</div>
 	{:else}
 		<div class="grid-wrapper">
-			<div class="episodes-grid">
+			<div 
+				class="episodes-grid"
+				on:touchstart={handleTouchStart}
+				on:touchend={handleTouchEndGrid}
+			>
 				{#each currentEpisodes as episode, i}
 					<article 
 						class="episode-card" 
@@ -267,7 +314,12 @@
 </div>
 
 {#if selectedEpisode}
-	<div class="modal-overlay" on:click={closeModal}>
+	<div 
+		class="modal-overlay" 
+		on:click={closeModal}
+		on:touchstart={handleTouchStart}
+		on:touchend={handleTouchEndModal}
+	>
 		<button class="modal-nav modal-nav-left" on:click|stopPropagation={prevEpisode} disabled={episodes.findIndex(ep => ep.id === selectedEpisode.id) === 0}>
 			<svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
 				<path d="M15 18l-6-6 6-6v12z"/>
