@@ -1148,15 +1148,20 @@
 	@media (min-width: 2000px) {
 		.grid-wrapper {
 			max-width: 1300px;
+			justify-content: center;
 		}
 
 		.episodes-grid {
 			gap: 3.5rem;
+			flex: 0 1 auto;
+			grid-template-rows: max-content max-content;
+			align-content: center;
 		}
 
 		.episode-card {
 			padding: 2.5rem;
 			border-radius: 16px;
+			height: auto;
 		}
 
 		.episode-number {
