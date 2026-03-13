@@ -400,7 +400,7 @@
 
 	.grid-wrapper {
 		width: 100%;
-		max-width: 1200px;
+		max-width: 1000px;
 		flex: 1;
 		min-height: 0;
 		display: flex;
@@ -411,7 +411,7 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		grid-template-rows: repeat(2, 1fr);
-		gap: 1.5rem;
+		gap: 1.25rem;
 		width: 100%;
 		margin: 0 auto;
 		align-content: start;
@@ -423,7 +423,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 1rem;
+		gap: 0.75rem;
 		padding: 0.5rem 2rem;
 		flex-shrink: 0; /* Navigation schrumpft nie weg */
 		width: 100%;
@@ -435,7 +435,7 @@
 		background: #f0ecec;
 		border: 2px solid rgba(5, 5, 16, 0.1);
 		border-radius: 12px;
-		padding: 1.5rem;
+		padding: 1.25rem;
 		transition: all 0.3s ease;
 		animation: fade-in 0.6s ease-out forwards;
 		opacity: 0;
@@ -666,17 +666,17 @@
 	}
 
 	.episode-number {
-		width: 50px;
-		height: 50px;
+		width: 44px;
+		height: 44px;
 		background: #050510;
 		border-radius: 10px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-weight: 500;
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 		color: #f0ecec;
-		margin-bottom: 1rem;
+		margin-bottom: 0.75rem;
 		flex-shrink: 0;
 	}
 
@@ -711,20 +711,20 @@
 	}
 
 	h3 {
-		font-size: 1rem;
+		font-size: 0.9rem;
 		font-weight: 500;
 		color: #050510;
-		margin: 0 0 1rem 0;
+		margin: 0 0 0.75rem 0;
 		line-height: 1.3;
 		flex-shrink: 0;
 	}
 
 	.episode-description {
-		font-size: 0.85rem;
+		font-size: 0.8rem;
 		color: #050510;
 		opacity: 0.7;
 		margin: 0;
-		line-height: 1.5;
+		line-height: 1.4;
 		transition: all 0.4s ease;
 		order: 3;
 		flex: 1;
@@ -1141,6 +1141,99 @@
 		.modal-links img {
 			width: 24px;
 			height: 24px;
+		}
+	}
+
+	/* Anpassungen für sehr große Bildschirme (Desktop / Ultrawide) */
+	@media (min-width: 2000px) {
+		.grid-wrapper {
+			max-width: 1300px;
+		}
+
+		.episodes-grid {
+			gap: 3.5rem;
+		}
+
+		.episode-card {
+			padding: 2.5rem;
+			border-radius: 16px;
+		}
+
+		.episode-number {
+			width: 60px;
+			height: 60px;
+			font-size: 1rem;
+		}
+
+		h3 {
+			font-size: 1.25rem;
+		}
+
+		.episode-description {
+			font-size: 1rem;
+		}
+
+		.episode-meta {
+			font-size: 0.85rem;
+		}
+
+		.nav-btn svg {
+			width: 48px;
+			height: 48px;
+		}
+
+		.page-indicator {
+			font-size: 1.1rem;
+		}
+
+		.modal-content {
+			max-width: 1100px;
+		}
+
+		.modal-body {
+			padding: 4rem 6rem;
+		}
+
+		.modal-body h3 {
+			font-size: 2rem;
+		}
+
+		.modal-description {
+			font-size: 1.15rem;
+		}
+
+		.modal-episode-number {
+			width: 80px;
+			height: 80px;
+			font-size: 1.25rem;
+		}
+	}
+
+	@media (min-width: 2200px) {
+		.grid-wrapper {
+			max-width: 1500px;
+		}
+
+		.episodes-grid {
+			gap: 5rem;
+		}
+
+		.episode-card {
+			padding: 3rem;
+		}
+
+		.episode-number {
+			width: 70px;
+			height: 70px;
+			font-size: 1.15rem;
+		}
+
+		h3 {
+			font-size: 1.4rem;
+		}
+
+		.episode-description {
+			font-size: 1.1rem;
 		}
 	}
 </style>

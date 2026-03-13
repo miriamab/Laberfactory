@@ -23,7 +23,7 @@
 	}
 
 	.hero-image {
-		width: 600px;
+		width: 450px;
 		max-width: 100%;
 	}
 
@@ -43,6 +43,19 @@
 		.hero-image {
 			width: 100%; /* Fast die gesamte Breite einnehmen statt festen winzigen 150px */
 			max-width: 380px; /* Begrenzung nach oben, damit es auf extrem breiten Handys nicht riesig wird */
+		}
+	}
+
+	/* Anpassungen für sehr große Bildschirme (Ultrawide / große Desktop-Monitore) */
+	@media (min-width: 2000px) {
+		.hero-image {
+			width: 800px;
+		}
+	}
+
+	@media (min-width: 2200px) {
+		.hero-image {
+			width: 1000px;
 		}
 	}
 </style>

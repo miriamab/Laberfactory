@@ -109,4 +109,35 @@
 			line-height: 1.5;
 		}
 	}
+
+	/* Anpassungen für sehr große Bildschirme */
+	@media (min-width: 2000px) {
+		.privacy-section {
+			max-width: 1200px;
+		}
+
+		h2 {
+			font-size: 2rem;
+			margin-bottom: 2.5rem;
+		}
+
+		p {
+			font-size: 1.1rem;
+		}
+	}
+
+	@media (min-width: 2200px) {
+		.privacy-section {
+			max-width: 1500px;
+		}
+
+		h2 {
+			font-size: 2.5rem;
+			margin-bottom: 3rem;
+		}
+
+		p {
+			font-size: 1.3rem;
+		}
+	}
 </style>

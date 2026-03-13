@@ -213,4 +213,68 @@
 			padding: 0.25rem 0;
 		}
 	}
+
+	/* Anpassungen für sehr große Bildschirme */
+	@media (min-width: 2000px) {
+		.news-section {
+			max-width: 1400px;
+		}
+
+		h2 {
+			font-size: 2rem;
+			margin-bottom: 3rem;
+		}
+
+		.news-content > p {
+			font-size: 1.25rem;
+		}
+
+		.articles-grid {
+			gap: 3rem;
+			margin: 2.5rem 0;
+		}
+
+		.article-card {
+			padding: 2.5rem;
+		}
+
+		.article-title {
+			font-size: 1.3rem;
+			margin-bottom: 1.25rem;
+		}
+
+		.article-description {
+			font-size: 1.1rem;
+		}
+
+		.article-link {
+			font-size: 1rem;
+		}
+	}
+
+	@media (min-width: 2200px) {
+		.news-section {
+			max-width: 1800px;
+		}
+
+		h2 {
+			font-size: 2.5rem;
+		}
+
+		.news-content > p {
+			font-size: 1.5rem;
+		}
+
+		.article-card {
+			padding: 3rem;
+		}
+
+		.article-title {
+			font-size: 1.5rem;
+		}
+
+		.article-description {
+			font-size: 1.25rem;
+		}
+	}
 </style>

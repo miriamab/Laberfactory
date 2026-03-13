@@ -183,4 +183,47 @@
 			height: 22px;
 		}
 	}
+
+	/* Anpassungen für sehr große Bildschirme */
+	@media (min-width: 2000px) {
+		.header-content {
+			max-width: 1600px;
+		}
+
+		.title-button {
+			font-size: 1.5rem;
+			left: 4rem;
+		}
+
+		.social-links {
+			right: 4rem;
+			gap: 2rem;
+		}
+
+		.social-links img {
+			width: 32px;
+			height: 32px;
+		}
+	}
+
+	@media (min-width: 2200px) {
+		.header-content {
+			max-width: 2000px;
+		}
+
+		.title-button {
+			font-size: 1.8rem;
+			left: 6rem;
+		}
+
+		.social-links {
+			right: 6rem;
+			gap: 2.5rem;
+		}
+
+		.social-links img {
+			width: 40px;
+			height: 40px;
+		}
+	}
 </style>

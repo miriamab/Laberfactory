@@ -1,4 +1,6 @@
 <script>
+	import { replaceState } from '$app/navigation';
+
 	export let activeTab = 'episodes';
 	
 	function switchTab(tab) {
@@ -9,7 +11,7 @@
 		document.dispatchEvent(event);
 		
 		// URL Hash setzen
-		window.history.replaceState(null, '', `#${tab}`);
+		replaceState(`#${tab}`, {});
 	}
 </script>
 

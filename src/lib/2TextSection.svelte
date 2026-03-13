@@ -71,4 +71,33 @@
 			font-size: 0.9rem;
 		}
 	}
+
+	/* Anpassungen für sehr große Bildschirme */
+	@media (min-width: 2000px) {
+		.section-content {
+			max-width: 900px;
+		}
+
+		.text-block {
+			gap: 3rem;
+		}
+
+		p {
+			font-size: 1.3rem;
+		}
+	}
+
+	@media (min-width: 2200px) {
+		.section-content {
+			max-width: 1200px;
+		}
+
+		.text-block {
+			gap: 4rem;
+		}
+
+		p {
+			font-size: 1.6rem;
+		}
+	}
 </style>
