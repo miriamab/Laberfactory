@@ -1,5 +1,6 @@
 <script>
 	export let activeTab = '';
+	import { isModalOpen } from '$lib/stores.js';
 	
 	function scrollToTop() {
 		// Sofort Overlay einblenden (kein Glitch)
@@ -13,7 +14,7 @@
 	}
 </script>
 
-<header class:privacy-mode={activeTab === 'privacy-policy'}>
+<header class:privacy-mode={activeTab === 'privacy-policy'} class:behind-modal={$isModalOpen}>
 	<div class="header-content">
 		<button class="title-button" on:click={scrollToTop}>Laberfactory</button>
 		<div class="social-links">
@@ -39,7 +40,13 @@
 		z-index: 1000;
 		padding-right: 2rem;
 		background: transparent;
-		transition: background-color 0.3s ease;
+		transition: background-color 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+	}
+
+	header.behind-modal {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
 	}
 
 	header.dark-header {
@@ -92,6 +99,7 @@
 		align-items: center;
 		opacity: 1;
 		transition: opacity 0.3s ease;
+		z-index: 1001; /* Z-Index hinzufügen, damit es sich korrekt in den Stacking Context einordnet */
 	}
 
 	.social-links a {

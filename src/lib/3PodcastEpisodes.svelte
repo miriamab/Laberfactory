@@ -1,5 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
+	import { isModalOpen } from '$lib/stores.js';
 
 	let episodes = [];
 	let loading = true;
@@ -101,6 +102,11 @@
 			error = err.message;
 			loading = false;
 		}
+	});
+
+	onDestroy(() => {
+		// Sicherheitshalber den Store zurücksetzen, falls die Komponente zerstört wird während das Modal noch offen ist
+		isModalOpen.set(false);
 	});
 
 	function parseRSSFeed(rssText) {
@@ -206,10 +212,12 @@
 
 	function openModal(episode) {
 		selectedEpisode = episode;
+		isModalOpen.set(true);
 	}
 
 	function closeModal() {
 		selectedEpisode = null;
+		isModalOpen.set(false);
 	}
 
 	function nextEpisode() {
@@ -457,7 +465,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		z-index: 2000;
+		z-index: 99999; /* Maximaler Z-Index, absolut sicher über allem anderen (Header, Social Links etc.) */
 		padding: 2rem;
 	}
 
@@ -477,7 +485,7 @@
 		top: 1.5rem;
 		height: 0;
 		width: 100%;
-		z-index: 2001;
+		z-index: 4001; /* Entsprechend angepasst */
 	}
 
 	.modal-close {
@@ -515,7 +523,7 @@
 		align-items: center;
 		justify-content: center;
 		transition: all 0.3s ease;
-		z-index: 1002;
+		z-index: 4002; /* Entsprechend angepasst */
 		min-width: 80px;
 		min-height: 80px;
 	}
@@ -980,11 +988,11 @@
 			max-width: 450px;
 			margin: 0 auto;
 			padding: 0 1rem;
-			gap: 1.25rem; /* Etwas kleinerer Gap als bei 640px, aber nicht gequetscht */
+			gap: 1rem; /* Etwas kompakter */
 		}
 
 		.episode-card {
-			padding: 1.25rem; /* Schön Platz lassen */
+			padding: 1rem; /* Weniger Padding, damit Inhalt nicht an den Rand stößt */
 			min-height: auto;
 			display: flex;
 			flex-direction: column;
@@ -998,11 +1006,11 @@
 		}
 
 		.episode-number {
-			width: 38px;
-			height: 38px;
-			font-size: 0.75rem;
-			border-radius: 8px;
-			margin-bottom: 0.5rem;
+			width: 32px;
+			height: 32px;
+			font-size: 0.7rem;
+			border-radius: 6px;
+			margin-bottom: 0.4rem;
 			flex-shrink: 0;
 		}
 		
@@ -1010,22 +1018,24 @@
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			gap: 0.75rem;
-			margin-bottom: 0.5rem;
+			gap: 0.6rem;
+			margin-bottom: 0.4rem;
 		}
 
 		.mobile-meta {
-			font-size: 0.75rem;
+			font-size: 0.7rem;
 			white-space: nowrap;
 		}
 
 		.episode-card h3 {
-			font-size: clamp(0.9rem, 4vw, 1.05rem); /* Gute Skalierung, nicht zu klein */
-			margin-bottom: 0.5rem;
+			font-size: clamp(0.85rem, 3.5vw, 0.95rem); /* Schrift etwas verkleinert */
+			margin-bottom: 0.4rem;
+			line-height: 1.3;
 		}
 
 		.episode-description {
-			font-size: clamp(0.75rem, 3vw, 0.85rem);
+			font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+			line-height: 1.4;
 		}
 
 		.nav-btn {
@@ -1054,36 +1064,39 @@
 	@media (max-width: 380px) {
 		.episodes-grid {
 			padding: 0 0.5rem;
-			gap: 0.75rem; /* Etwas runder auf klitzekleinen handys */
+			gap: 0.75rem; 
 		}
 
 		.episode-card {
-			padding: 0.85rem;
+			padding: 0.75rem; /* Noch kompakter für ganz kleine Handys */
 		}
 
 		.episode-number {
-			width: 32px;
-			height: 32px;
-			font-size: 0.7rem;
+			width: 28px;
+			height: 28px;
+			font-size: 0.65rem;
+			border-radius: 5px;
 		}
 
 		.episode-header-wrapper {
-			gap: 0.5rem;
-			margin-bottom: 0.5rem;
+			gap: 0.4rem;
+			margin-bottom: 0.3rem;
 		}
 
 		.mobile-meta {
-			font-size: 0.65rem;
+			font-size: 0.6rem;
 		}
 
 		.episode-card h3 {
-			font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+			font-size: clamp(0.75rem, 3vw, 0.85rem); /* Extra verkleinert */
 			margin-bottom: 0.25rem;
+			line-height: 1.2;
 		}
 
 		.episode-description {
-			font-size: clamp(0.7rem, 3vw, 0.8rem);
-			-webkit-line-clamp: 2; /* 2 Zeilen sollten passen */
+			font-size: clamp(0.65rem, 2.5vw, 0.7rem);
+			-webkit-line-clamp: 2;
+			line-height: 1.3; /* Engerer Zeilenabstand */
 		}
 
 		.nav-btn {
