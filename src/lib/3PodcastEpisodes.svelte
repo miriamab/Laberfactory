@@ -793,93 +793,101 @@
 
 	@media (max-width: 768px) {
 		.episodes-container {
-			padding-bottom: 15px; /* Weniger Abstand unten */
+			padding-bottom: 20px;
 		}
 
 		.episodes-grid {
 			grid-template-columns: repeat(2, 1fr);
 			grid-template-rows: repeat(3, 1fr);
-			gap: 0.75rem; /* Etwas kleinerer Gap für mehr Platz */
-			max-width: 600px;
-			min-height: 0; /* Flexibel statt fest, vorher 700px */
+			gap: 1.25rem; /* Wieder mehr Platz zwischen den Karten */
+			max-width: 650px;
+			min-height: 0;
+			padding: 0 1.5rem;
+			align-content: space-evenly;
+			height: 100%;
 		}
 		
 		.navigation {
 			bottom: 0;
-			padding: 0.25rem; /* Platz sparend */
+			padding: 0.5rem;
 		}
 
 		.episode-card {
-			padding: 1rem; /* Kompakter */
-			min-height: 0; /* Erlaubt dynamische Anpassung, vorher 180px */
+			padding: 1.25rem; /* Größeres Padding für Tablet */
+			min-height: 0;
 		}
 
 		.episode-number {
-			width: 45px;
-			height: 45px;
-			font-size: 0.8rem;
+			width: 48px;
+			height: 48px;
+			font-size: 0.85rem;
 		}
 
 		h3 {
-			font-size: 0.95rem;
+			font-size: 1rem; /* Größere Schrift */
 		}
 
 		.episode-description {
-			font-size: 0.8rem;
+			font-size: 0.85rem;
 		}
 
 		.modal-body {
-			padding: 2rem 2.5rem;
+			padding: 2.5rem 3rem;
 		}
 
 		.modal-body h3 {
-			font-size: 1.25rem;
+			font-size: 1.35rem;
 		}
 
 		.modal-description {
-			font-size: 0.95rem;
+			font-size: 1rem;
 		}
 	}
 
 	@media (max-width: 640px) {
 		.episodes-grid {
-			grid-template-columns: 1fr; /* Nur eine Spalte für Mobile */
-			grid-template-rows: auto; /* Keine feste Grid-Zeilenhöhe vergeben */
-			max-width: 320px; /* Wieder die Originalbreite */
+			grid-template-columns: 1fr;
+			grid-template-rows: auto;
+			width: 100%;
+			max-width: 500px;
 			margin: 0 auto; 
 			min-height: 0; 
-			gap: 1.25rem; /* Etwas Abstand zwischen den Karten fallback */
-			padding: 0 0.5rem;
-			display: flex; /* Wechseln von Grid zu Flex für bessere vertikale Verteilung */
-			flex-direction: column;
-			justify-content: space-evenly; /* Verteilt den verfügbaren Platz gleichmäßig Dazwischen */
+			gap: 1.5rem;
+			padding: 0 1.5rem;
+			display: grid;
+			align-content: space-evenly; /* Verteilt den verfügbaren vertikalen Platz gleichmäßig inkl. Zwischenräumen */
+			height: 100%; /* Wichtig, damit das Grid den Container ausfüllt und Platz verteilen kann */
 		}
 		
 		.episode-card {
-			padding: 1.85rem 1rem; /* Ein kleines bisschen mehr inneren Raum zurückgeben für die Höhe (und horizontal etwas atmen) */
-			min-height: 80px; /* Eine winzige garantierte Grundhöhe, dass sie nicht zu mickrig aussehen */
-			justify-content: flex-start; /* Keine künstliche Streckung im Inneren */
-			height: auto; /* Die Karte nimmt nur den Platz ein, den sie wirklich braucht */
+			padding: 1.5rem; /* Wieder größeres, luftigeres Padding */
+			min-height: auto;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			overflow: hidden;
 		}
 
 		.episode-content {
-			justify-content: flex-start; /* Auch hier nicht mehr auf die ganze Höhe zwingen */
-			flex: 0 0 auto; 
-			margin-top: 0.25rem; /* Ein minimaler Puffer über dem Titel in der Karte */
+			flex: 1; 
+			margin-top: 0.25rem;
+			width: 100%;
 		}
 
 		.episode-header-wrapper {
 			display: flex;
 			align-items: center;
-			gap: 0.75rem;
+			gap: 1rem;
 			margin-bottom: 0.5rem;
+			width: 100%;
 		}
 
 		.episode-number {
 			margin-bottom: 0; 
-			width: 38px;
-			height: 38px;
-			font-size: 0.8rem;
+			width: 44px;
+			height: 44px;
+			font-size: 0.85rem;
+			flex-shrink: 0;
 		}
 
 		.desktop-meta {
@@ -888,25 +896,136 @@
 
 		.mobile-meta {
 			display: flex;
-			font-size: 0.7rem; 
+			font-size: 0.8rem; 
 			margin-top: 0;
+			color: #050510;
+			opacity: 0.6;
+			flex-wrap: wrap;
+			gap: 0.5rem;
 		}
 
 		.episode-card h3 {
-			font-size: 0.9rem;
-			margin-bottom: 0;
+			font-size: 1.1rem; /* Schön groß für Lesbarkeit */
+			margin-bottom: 0.75rem;
 			display: -webkit-box;
-			-webkit-line-clamp: 2; /* Maximal 2 Zeilen für Titel */
+			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
+			width: 100%;
+			line-height: 1.4;
 		}
 
 		.episode-description {
-			font-size: 0.75rem;
+			font-size: 0.85rem;
 			display: -webkit-box;
-			-webkit-line-clamp: 3; /* Maximal 3 Zeilen für Beschreibung */
+			-webkit-line-clamp: 3;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
+			line-height: 1.5;
+		}
+
+		.nav-btn {
+			width: 48px;
+			height: 48px;
+			padding: 0.75rem;
+		}
+
+		.modal-overlay {
+			padding: 1.5rem;
+		}
+
+		.modal-body {
+			padding: 2rem 1.5rem;
+		}
+
+		.modal-body h3 {
+			font-size: 1.15rem;
+			margin-bottom: 1.25rem;
+		}
+
+		.modal-description {
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
+
+		.modal-meta {
+			font-size: 0.85rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.modal-close {
+			right: 1.25rem;
+			top: 0.75rem;
+		}
+
+		.modal-nav {
+			display: none;
+		}
+	}
+
+	@media (max-width: 550px) {
+		.episodes-container {
+			padding-bottom: 0;
+		}
+
+		.navigation {
+			padding: 0.5rem;
+			margin-top: 0.5rem;
+			margin-bottom: 0.5rem;
+			gap: 0.5rem;
+		}
+
+		.episodes-grid {
+			width: 100%;
+			max-width: 450px;
+			margin: 0 auto;
+			padding: 0 1rem;
+			gap: 1.25rem; /* Etwas kleinerer Gap als bei 640px, aber nicht gequetscht */
+		}
+
+		.episode-card {
+			padding: 1.25rem; /* Schön Platz lassen */
+			min-height: auto;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.episode-content {
+			margin-top: 0; 
+			justify-content: flex-start;
+			align-items: stretch;
+			width: 100%;
+		}
+
+		.episode-number {
+			width: 38px;
+			height: 38px;
+			font-size: 0.75rem;
+			border-radius: 8px;
+			margin-bottom: 0.5rem;
+			flex-shrink: 0;
+		}
+		
+		.episode-header-wrapper {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 0.75rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.mobile-meta {
+			font-size: 0.75rem;
+			white-space: nowrap;
+		}
+
+		.episode-card h3 {
+			font-size: clamp(0.9rem, 4vw, 1.05rem); /* Gute Skalierung, nicht zu klein */
+			margin-bottom: 0.5rem;
+		}
+
+		.episode-description {
+			font-size: clamp(0.75rem, 3vw, 0.85rem);
 		}
 
 		.nav-btn {
@@ -915,36 +1034,100 @@
 			padding: 0.5rem;
 		}
 
-		.modal-overlay {
-			padding: 1rem;
+		.page-indicator {
+			font-size: 0.85rem;
 		}
 
 		.modal-body {
-			padding: 1.5rem 1rem;
+			padding: 1.5rem 1.25rem;
 		}
 
 		.modal-body h3 {
-			font-size: 1rem;
-			margin-bottom: 1rem;
+			font-size: 1.1rem;
 		}
 
 		.modal-description {
-			font-size: 0.85rem;
-			line-height: 1.5;
+			font-size: 0.9rem;
+		}
+	}
+
+	@media (max-width: 380px) {
+		.episodes-grid {
+			padding: 0 0.5rem;
+			gap: 0.75rem; /* Etwas runder auf klitzekleinen handys */
+		}
+
+		.episode-card {
+			padding: 0.85rem;
+		}
+
+		.episode-number {
+			width: 32px;
+			height: 32px;
+			font-size: 0.7rem;
+		}
+
+		.episode-header-wrapper {
+			gap: 0.5rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.mobile-meta {
+			font-size: 0.65rem;
+		}
+
+		.episode-card h3 {
+			font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+			margin-bottom: 0.25rem;
+		}
+
+		.episode-description {
+			font-size: clamp(0.7rem, 3vw, 0.8rem);
+			-webkit-line-clamp: 2; /* 2 Zeilen sollten passen */
+		}
+
+		.nav-btn {
+			width: 36px;
+			height: 36px;
+			padding: 0.3rem;
+		}
+
+		.nav-btn svg {
+			width: 18px;
+			height: 18px;
+		}
+
+		.page-indicator {
+			font-size: 0.75rem;
+			min-width: 50px;
+		}
+
+		.modal-body {
+			padding: 1rem 0.75rem;
+		}
+
+		.modal-body h3 {
+			font-size: 0.95rem;
+		}
+
+		.modal-episode-number {
+			width: 40px;
+			height: 40px;
+			font-size: 0.8rem;
+		}
+
+		.modal-description {
+			font-size: 0.8rem;
+			line-height: 1.4;
 		}
 
 		.modal-meta {
-			font-size: 0.8rem;
-			margin-bottom: 1rem;
+			font-size: 0.75rem;
 		}
 
-		.modal-close {
-			right: 1rem;
-			top: 0.5rem;
-		}
-
-		.modal-nav {
-			display: none;
+		.modal-links img {
+			width: 24px;
+			height: 24px;
 		}
 	}
 </style>

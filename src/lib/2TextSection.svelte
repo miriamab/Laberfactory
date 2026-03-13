@@ -16,11 +16,13 @@
 
 <style>
 	.text-section {
-		min-height: 100vh;
+		height: 100%;
+		flex: 1;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		padding: 2rem;
+		box-sizing: border-box; /* Sicherstellen, dass Padding nicht die Höhe vergrößert */
 	}
 
 	.text-section.dark {

@@ -34,32 +34,41 @@
 	}
 
 	function updateHeaderState() {
+		const header = document.querySelector('header');
+		if (!header) return;
+
 		const darkSections = document.querySelectorAll('.section-dark');
-		const section1 = document.getElementById('section-1');
+		const section0 = document.getElementById('section-0');
 		
-		isDarkSection = false;
+		let isDark = false;
 		let showTitle = false;
 		
 		darkSections.forEach((section) => {
 			const rect = section.getBoundingClientRect();
-			// Mobile friendly header update: check if section is mostly taking up screen
-			if (rect.top <= window.innerHeight * 0.2 && rect.bottom >= window.innerHeight * 0.2) {
-				isDarkSection = true;
+			// Mobile friendly header update: check if section covers the top part of screen where header is
+			if (rect.top <= window.innerHeight * 0.15 && rect.bottom >= window.innerHeight * 0.05) {
+				isDark = true;
 			}
 		});
 
-		if (section1) {
-			const rect = section1.getBoundingClientRect();
-			if (rect.top <= window.innerHeight * 0.1) {
-			} else {
-				header.classList.remove('dark-header');
+		if (section0) {
+			const rect = section0.getBoundingClientRect();
+			// Show title 'Laberfactory' when hero section is mostly scrolled out of view
+			if (rect.bottom <= window.innerHeight * 0.1) {
+				showTitle = true;
 			}
+		}
 
-			if (showTitle) {
-				header.classList.add('show-title');
-			} else {
-				header.classList.remove('show-title');
-			}
+		if (isDark) {
+			header.classList.add('dark-header');
+		} else {
+			header.classList.remove('dark-header');
+		}
+
+		if (showTitle) {
+			header.classList.add('show-title');
+		} else {
+			header.classList.remove('show-title');
 		}
 	}
 
@@ -196,6 +205,12 @@
 	.privacy-mode #section-0,
 	.privacy-mode #section-1 {
 		display: none;
+	}
+
+	#section-2 {
+		background-color: var(--bg);
+		position: relative;
+		z-index: 10;
 	}
 
 	.snap-section {

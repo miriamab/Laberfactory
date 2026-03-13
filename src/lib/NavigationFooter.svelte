@@ -122,6 +122,48 @@
 		background: rgba(5, 5, 16, 0.1);
 		font-weight: 500;
 	}
+	@media (max-width: 400px) {
+		footer {
+			padding: 1rem 0.25rem;
+		}
+		.footer-content {
+			gap: 0.5rem;
+		}
+		.footer-line {
+			gap: 0.2rem;
+		}
+		.logo, .divider {
+			font-size: 0.55rem;
+		}
+		.footer-line p {
+			font-size: 0.5rem;
+		}
+		.footer-links {
+			gap: 0.1rem;
+		}
+		.footer-link, .footer-links a:not(.footer-link) {
+			font-size: 0.55rem;
+			padding: 0.15rem;
+		}
+	}
+@media (max-width: 390px) {
+footer {
+padding: 1rem 0.25rem;
+}
+.footer-content {
+gap: 0.5rem;
+}
+.logo, .divider {
+font-size: 0.55rem;
+}
+.footer-line p {
+font-size: 0.5rem;
+}
+.footer-link, .footer-links a:not(.footer-link) {
+font-size: 0.55rem;
+padding: 0.15rem;
+}
+}
 
 	@media (min-width: 768px) {
 		footer {
